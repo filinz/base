@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>base/git</title>
+</head>
+
+<h1>Работа с Git</h1>
+<PRE>
+Установка: https://git-scm.com/download/win
+Запустить Git Bash
+cd папка_с_проектом
+git init
+git add .
+git commit -m 'initial commit'
+git log
+
+git config --global user.name "Mikhail Snytkov"
+git config --global user.email "coolfilinz@gmail.com"
+
+<hr>
+git status 
+информация об измененных и готовых к коммиту коммитах
+
+git add .
+добавить в коммит все файлы и директории текущей папки
+git add file1.html file2.html
+
+git commit -m 'название коммита'
+добавление в коммит
+-a сразу добавляет все изменения в коммит
+
+git add file1.html file2.html
+добавление с указанием файлов
+
+git add -p file.html
+меню частичного добавления файла
+? - справка по командам add
+s - разбить код по фрагментам
+y - добавить
+n - не добавлять
+
+.gitignore
+список исключенных из git файлов в корне проекта
+уже контролируемые файлы не исчезнут
+
+git rm --cached file.html
+удаление из контроля git
+git rm file.html
+удаляет и из файловой системы
+
+git mv file1.html file2.html
+переименование файла
+
+git log
+список коммитов
+
+git show 
+просмотреть последний коммит
+
+git diff hash1 hash2
+сравнение коммитов
+
+git diff HEAD~1
+
+git diff HEAD~2 HEAD~1
+
+<hr>
+git checkout -- file.html
+отмена изменений с очисткой рабочей директории
+
+git add .
+git commit --amend -m 'new text commit'
+добавление всех изменений в последний коммит
+
+git revert hash 
+до коммита все отменить
+
+git reset --hard hash
+с очищение рабочей директории
+
+git reset --hard
+сброс до последнего коммита
+
+git reset --mixed HEAD 
+(умолч)
+возвращает измененное в unstaged
+
+git reset --soft hash
+все что было после коммита - добавляет в индекс
+
+<hr>
+git clone https://github.com/filinz/base
+скопировать репозиторий
+
+git push
+залить на удаленный репозиторий коммиты
+
+git push --force
+принудительно обновить на сервере
+
+git pull
+получить изменения
+
+<hr>
+git checkout -b dev
+создание ветки dev и переключение на нее
+
+git checkout master
+переключение на ветку
+
+git push -u origin vetka2
+git push -u origin main
+отправить ветку
+
+git remote
+git remote -v
+список всех удаленных серверов
+
+git branch -m vtka2 vetka2
+переименование ветки
+
+git branch -l
+список всех веток проекта
+
+git branch -d vetka2
+удаление ветки
+
+git push --delete origin vetka2
+удаление ветки на сервере
+
+git giff main..vetka2
+сравнение веток
+
+git fetch
+git diff main..origin/main
+подгрузить не сливая ветку и сравнить
+git pull
+вольет ветку
+
+git merge vetka2
+объединение с веткой, новый коммит
+
+git merge --abort
+отмена слияния (автоматического)
+
+<hr>
+Ветки должны именоваться в соответствии с их назначением/задачей/именем билда (фича или билд).
+Коммиты - осмысленный набор изменений.
+Начинать название с номера задачи.
+Регулярность коммитов. Желательно коммитить по завершении рабочего дня.
+git pull перед git push
+Использовать git только по назначению - отслеживание версий программного кода.
+Не использовать для хранения бекапов, логов, картинок и т.д.
+Придерживаться процесса, принятого в команде.
+
+<hr>
+Создание SSH ключей:
+Settings -> SSH and GPG keys -> link:generating SSH keys -> Generating a new SSH key 
+ssh-keygen -t -rsa -b 4096 -C "mail@mail.com"
+Публичный ключ
+cat link_to_keys/.ssh/id_rsa.pub
+Создать репозиторий на github
+git remote add origin coolfilinz@gmail.com:filinz/projectname.git
+git push -u origin master
+запросит пароль к ключу
+</PRE>
+
