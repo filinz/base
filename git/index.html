@@ -2,11 +2,17 @@
 <html lang="ru">
 <head>
 	<meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>base/git</title>
+  <link rel="stylesheet" href="../style.css">
 </head>
 
+<body>
+<a href="../index.html">back</a>
+
 <h1>Работа с Git</h1>
-<PRE>
+<pre>
 Установка: https://git-scm.com/download/win
 Запустить Git Bash
 cd папка_с_проектом
@@ -19,7 +25,7 @@ git config --global user.name "Mikhail Snytkov"
 git config --global user.email "coolfilinz@gmail.com"
 
 <hr>
-git status 
+git status
 информация об измененных и готовых к коммиту коммитах
 
 git add .
@@ -55,7 +61,7 @@ git mv file1.html file2.html
 git log
 список коммитов
 
-git show 
+git show
 просмотреть последний коммит
 
 git diff hash1 hash2
@@ -73,7 +79,7 @@ git add .
 git commit --amend -m 'new text commit'
 добавление всех изменений в последний коммит
 
-git revert hash 
+git revert hash
 до коммита все отменить
 
 git reset --hard hash
@@ -82,7 +88,7 @@ git reset --hard hash
 git reset --hard
 сброс до последнего коммита
 
-git reset --mixed HEAD 
+git reset --mixed HEAD
 (умолч)
 возвращает измененное в unstaged
 
@@ -156,7 +162,7 @@ git pull перед git push
 
 <hr>
 Создание SSH ключей:
-Settings -> SSH and GPG keys -> link:generating SSH keys -> Generating a new SSH key 
+Settings === SSH and GPG keys === link:generating SSH keys === Generating a new SSH key
 ssh-keygen -t -rsa -b 4096 -C "mail@mail.com"
 Публичный ключ
 cat link_to_keys/.ssh/id_rsa.pub
@@ -164,5 +170,6 @@ cat link_to_keys/.ssh/id_rsa.pub
 git remote add origin coolfilinz@gmail.com:filinz/projectname.git
 git push -u origin master
 запросит пароль к ключу
-</PRE>
-
+</pre>
+</body>
+</html>
