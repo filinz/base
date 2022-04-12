@@ -1,26 +1,31 @@
 
 // ЛЕКСИЧЕСКАЯ СТРУКТУРА
-// Переменные чувствительны к регистру
-// Пробелы и переводы строк игнорируются
-// Индентификаторы начинаются с буквы/_/$, далее буквы/цифры/_/$
+/*
+Переменные чувствительны к регистру
+Пробелы и переводы строк игнорируются
+Индентификаторы начинаются с буквы/_/$, далее буквы/цифры/_/$
+*/
 
 
 // ТИПЫ ДАННЫХ, ЗНАЧЕНИЯ И ПЕРЕМЕННЫЕ
-  // Простые типы
-  var myNumber = 12, // number - все числа вещественные, от -2^53 до 2^53
-      myNumber2 = 1.45, // number
-      myString = "строка", // string
-      myBoolean = true, // boolean
-      myNull = null, // object - ошибка typeof
-      myUndefined = undefined; // undefined
-      /* значение неинициализированной переменной / несущ. св-во объекта / несущ. элемент массива
-      непереданный в функцию параметр / если функция ничего не возвращает */
-  console.log(myNumber+":"+typeof myNumber);
-  console.log(myNumber2+":"+typeof myNumber2);
-  console.log(myString+":"+typeof myString);
-  console.log(myBoolean+":"+typeof myBoolean);
-  console.log(myNull+":"+typeof myNull); // object
-  console.log(myUndefined+":"+typeof myUndefined);
+// ПРОСТЫЕ ТИПЫ
+var myNumber = 12, // number - все числа вещественные, от -2^53 до 2^53
+    myNumber2 = 1.45, // number
+    myString = "строка", // string
+    myBoolean = true, // boolean
+    myNull = null, // object (ошибка typeof)
+    myUndefined = undefined; // undefined
+    /* undefined - значение неинициализированной переменной / несущ. св-во объекта / несущ. элемент массива
+    непереданный в функцию параметр / если функция ничего не возвращает */
+
+const CON = 1;
+
+console.log(myNumber + ":" + typeof myNumber);
+console.log(myNumber2 + ":" + typeof myNumber2);
+console.log(myString + ":" + typeof myString);
+console.log(myBoolean + ":" + typeof myBoolean);
+console.log(myNull + ":" + typeof myNull); // object
+console.log(myUndefined + ":" + typeof myUndefined);
 
 
 
