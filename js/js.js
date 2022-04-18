@@ -9,45 +9,247 @@
 
 // ТИПЫ ДАННЫХ, ЗНАЧЕНИЯ И ПЕРЕМЕННЫЕ
 // ПРОСТЫЕ ТИПЫ
-var myNumber = 12, // number - все числа вещественные, от -2^53 до 2^53
+let myNumber = 12, // number - все числа вещественные, от -2^53 до 2^53
     myNumber2 = 1.45, // number
     myString = "строка", // string
     myBoolean = true, // boolean
     myNull = null, // object (ошибка typeof)
+    myInf = Infinity, // number (бесконечность - выход за пределы)
     myUndefined = undefined; // undefined
-    /* undefined - значение неинициализированной переменной / несущ. св-во объекта / несущ. элемент массива
-    непереданный в функцию параметр / если функция ничего не возвращает */
+    /*
+    undefined:
+      значение неинициализированной переменной
+      несущ. св-во объекта
+      несущ. элемент массива
+      непереданный в функцию параметр
+      если функция ничего не возвращает
+    */
 
-const CON = 1;
+let myExp = 2e3,
+    myExp2 = 2e-3,
+    myExp3 = 2.2e3,
+    myExp4 = 2.2e-3;
 
-console.log(myNumber + ":" + typeof myNumber);
-console.log(myNumber2 + ":" + typeof myNumber2);
-console.log(myString + ":" + typeof myString);
-console.log(myBoolean + ":" + typeof myBoolean);
-console.log(myNull + ":" + typeof myNull); // object
-console.log(myUndefined + ":" + typeof myUndefined);
+let myBin = 0b1100100,
+    myOct = 0144,
+    myOct2 = 0o144,
+    myDec = 100,
+    myHex = 0x64;
 
+const CON = 100;
+
+console.log('\n- Типы данных:');
+console.log(myNumber + " (number):", typeof myNumber);
+console.log(myNumber2 + " (number):", typeof myNumber2);
+console.log(myString + " (string):", typeof myString);
+console.log(myBoolean + " (boolean):", typeof myBoolean);
+console.log(myNull + " (object):", typeof myNull);
+console.log(myInf + " (number):", typeof myInf);
+console.log(myUndefined + " (undefined):", typeof myUndefined);
+console.log("\n- Экспоненциальная запись: ", myExp, myExp2, myExp3, myExp4);
+console.log("\n- Binary Octal Octal2 Decimal Hexadecimal: ", myBin, myOct, myOct2, myDec, myHex);
+console.log("\n- Константа " + CON + " (number):", typeof CON);
+
+// MATH
+let myAbs = Math.abs(-20), // 20, абсолютное значение по модулю
+    mySin = Math.sin(Math.PI / 2), // 1, синус 90
+    myCos = Math.cos(Math.PI * 2), // 1, косинус 360
+    myTan = Math.tan(0), // 0, тангенс 0
+    myAtan = Math.atan(0), // 0, арктангенс 0
+    myLog = Math.log(Math.E), // 1, натуральный логарифм (ln) числа E
+
+    myRound = Math.round(2.8), // 3, математическое округление
+    myFloor = Math.floor(2.8), // 2, округление вниз
+    myCeil = Math.ceil(3.2), // 4, округление вверх
+
+    myMax = Math.max(10, 1, -40, 12, 5), // 12, наибольшее из переданных
+    myMin = Math.min(10, 1, -40, 12, 5), // -40, наименьшее из переданных
+
+    myPow = Math.pow(10, 3), // 10^3, 1000
+    myPow2 = 10**3, // не везде работает
+    mySqrt = Math.sqrt(16), // 4, квадратный корень
+    mySqrt2 = Math.sqrt(-2), // NaN
+    myPowSqrt = Math.pow(16, 0.5), // 4, квадратный корень
+
+    myRandom = Math.random(), // случайное число от 0 до 1
+    myRnd99 = Math.floor(Math.random() * 100); // случайное число от 0 до 99
+
+console.log('\n- Math:');
+console.log("abs 20 (20):", myAbs);
+console.log("sin pi/2 (1):", mySin);
+console.log("cos pi*2 (1):", myCos);
+console.log("tan 0 (0):", myTan);
+console.log("atan 0 (0):", myAtan);
+console.log("log E (1):", mySin);
+console.log("round 2.8 (3):", myRound);
+console.log("floor 2.8 (2):", myFloor);
+console.log("ceil 3.2 (4):", myCeil);
+console.log("max 10, 1, -40, 12, 5 (12):", myMax);
+console.log("min 10, 1, -40, 12, 5 (-40):", myMin);
+console.log("pow 10, 3 (1000):", myPow);
+console.log("10**3 (1000):", myPow2);
+console.log("sqrt 16 (4):", mySqrt);
+console.log("sqrt -2 (NaN):", mySqrt2);
+console.log("pow 16, 0.5 (4):", myPowSqrt);
+console.log("random (rnd 0-1):", myRandom);
+console.log("random 0-99 (rnd 0-99):", myRnd99);
+
+let myInf1 = Infinity === Infinity, // true
+    myInf2 = Infinity >= Infinity, // true
+    myInf3 = Infinity <= Infinity, // true
+    myInf4 = Infinity > Infinity, // false
+    myInf5 = Infinity < Infinity, // false
+
+    myInf6 = Infinity + Infinity, // Infinity
+    myInf7 = -Infinity - Infinity, // -Infinity
+
+    myInf8 = 0 / 0, // NaN
+    myInf9 = Infinity / Infinity, // NaN
+    myInf10 = Infinity - Infinity, // NaN
+    myInf11 = -Infinity + Infinity, // NaN
+    // невозможность выполнения в математике (not a number), при сравнении всегда false
+
+    myInf12 = Infinity * 10, // Infinity
+    myInf13 = Infinity / 10, // Infinity
+    myInf14 = Infinity ** 10, // Infinity
+    myInf15 = Infinity ** Infinity, // Infinity
+
+    myInf16 = Infinity ** -Infinity, // 0
+    myInf17 = (-Infinity) ** Infinity; // Infinity
+
+console.log('\n- Infinity:')
+console.log("1e+308 (1e+308):", 1e+308);
+console.log("1e+309 (Infinity):", 1e+309);
+console.log("(true):", myInf1, myInf2, myInf3);
+console.log("(false):", myInf4, myInf5);
+console.log("(Infinity):", myInf6, myInf12, myInf13, myInf14, myInf15, myInf17);
+console.log("(-Infinity):", myInf7);
+console.log("(NaN):", myInf8, myInf9, myInf10, myInf11);
+console.log("(0):", myInf16);
+
+let myUnderflow1 = 1e-323, // отличимо от 0
+    myUnderflow2 = 1e-324; // неотличимо от 0
+
+console.log("\n- underflow:"); // макс. близко к нулю = 0
+console.log("1e-323 (1e-323):", myUnderflow1);
+console.log("1e-324 (0):", myUnderflow2);
+
+// СТРОКИ
+let myStrSingle = 'Строка в одиночных кавычках',
+    myStrDouble = "Строка в двойных кавычках",
+    myStrBack = `Строка в обратных кавычках`,
+
+    myStrIn1 = 'Одиночные "Двойные" `Обратные` Одиночные',
+    myStrIn2 = "Двойные 'Одиночные' `Обратные` Двойные",
+    myStrIn3 = `Обратные 'Одиночные' "Двойные" Обратные`,
+
+    myStrMulti1 = 'Строка\nс\nпереносами',
+    myStrMulti2 = `Строка
+    с
+    переносами`,
+
+    myStrConcat = myStrSingle + ' ' + myStrDouble,
+    myStrConcatBack = `${myStrSingle} ${myStrDouble}`,
+
+    myStrSymbols = '\' \" \` \t \\',
+    myStrUtf8 = '\x31',
+    myStrUtf16 = '\u0031',
+    myStrUtf32 = '\u{1F354}';
+
+console.log("\n- Строки:");
+console.log(myStrSingle);
+console.log(myStrDouble);
+console.log(myStrBack);
+console.log(myStrIn1);
+console.log(myStrIn2);
+console.log(myStrIn3);
+console.log(myStrMulti1);
+console.log(myStrMulti2);
+console.log('Конкатенация 1:', myStrConcat);
+console.log('Конкатенация 2:', myStrConcatBack);
+console.log('Экранированные символы:', myStrSymbols);
+console.log('Cимвол UTF-8 (1):', myStrUtf8);
+console.log('Cимвол UTF-16 (1):', myStrUtf16);
+console.log('Cимвол UTF-32 (гамбургер):', myStrUtf32);
+
+// ЛОГИЧЕСКИЕ ЗНАЧЕНИЯ
+let yep = true,
+    nope = false,
+    nope2 = !yep,
+
+    // только эти значения дают false
+    myBoolUndef1 = Boolean(0),
+    myBoolUndef2 = Boolean(""),
+    myBoolUndef3 = Boolean(null),
+    myBoolUndef4 = Boolean(NaN),
+    myBoolUndef5 = Boolean(undefined),
+
+    myNullUndef1 = null == undefined,
+    myNullUndef2 = null === undefined,
+
+    myResult1 = 'Не сработало',
+    myResult2 = 'Не сработало',
+    myDoResult1 = true && (myResult1 = 'Cработало'), // Справа сработает, если левое истина
+    myDoResult2 = false && (myResult2 = 'Cработало'),
+
+    myStrBool1 = "Непустая строка" || "Строка по-умолчанию", // возьмется первая
+    myStrBool2 = "" || "Строка по-умолчанию"; // возьмется вторая
+
+/*
+isTrue && (a = 5); - Справа сработает, если левое истина
+*/
+
+console.log("\n- Логические значения:");
+console.log("(true false false):", yep, nope, nope2);
+console.log("Boolean 0 (false):", myBoolUndef1);
+console.log('Boolean "" (false):', myBoolUndef2);
+console.log("Boolean null (false):", myBoolUndef3);
+console.log("Boolean NaN (false):", myBoolUndef4);
+console.log("Boolean undefined (false):", myBoolUndef5);
+console.log("null == undefined (true):", myNullUndef1);
+console.log("null === undefined (false):", myNullUndef2);
+
+console.log("(Сработало):", myDoResult1, myResult1);
+console.log("(Не сработало):", myDoResult2, myResult2);
+
+console.log("(Непустая строка):", myStrBool1);
+console.log("(Строка по-умолчанию):", myStrBool2);
 
 
 // ВЫРАЖЕНИЯ И ОПЕРАТОРЫ
-/* Приоритет операторов
-. [ ] ( )     - Доступ к полям, индексация массивов, вызовы функций и группировка выражений
-++ -- - ~ ! delete new typeof void
-              - Унарные операторы, тип возвращаемых данных, создание объектов, неопределенные значения
-* / %         - Умножение, деление, деление по модулю
-+ - +         - Сложение, вычитание, объединение строк
-<< >> >>>     - Сдвиг битов
-< <= > >= instanceof
-              - Меньше, меньше или равно, больше, больше или равно, instanceof
-== != === !== - Равенство, неравенство, строгое равенство, строгое неравенство
-&             - Побитовое И
-^             - Побитовое исключающее ИЛИ
-|             - Побитовое ИЛИ
-&&            - Логическое И
-||            - Логическое ИЛИ
-?:            - Условный оператор
-= OP=         - Присваивание, присваивание с операцией (например += и &=)
-,             - Вычисление нескольких выражений */
+
+/*
+Операторы:
+  Оператор присваивания = работает справа налево
+  Мат.операторы + - * / % по мат.правилам
+  Унарные операторы +10 -10 ++i i--
+  Бинарные операторы + - * / % += -= *= /= %= (присваивания с операцией)
+  Операторы отношения < > <= >= == != (с приведением типов) === !==
+
+Приоритет операторов:
+  . [ ] ( ) (доступ к полям, индексация массивов, вызовы функций и группировка выражений)
+  ++ -- - ~ ! delete new typeof void (унарные операторы, тип возвращаемых данных, создание объектов, неопределенные значения)
+  * / % (умножение, деление, деление по модулю)
+  + - + (сложение, вычитание, объединение строк)
+  << >> >>> (сдвиг битов)
+  < <= > >= instanceof (меньше, меньше или равно, больше, больше или равно, instanceof)
+  == != === !== (равенство, неравенство, строгое равенство, строгое неравенство)
+  & (побитовое И)
+  ^ (побитовое исключающее ИЛИ)
+  | (побитовое ИЛИ)
+  && (логическое И)
+  || (логическое ИЛИ)
+  ?: (условный оператор)
+  = += (присваивание, присваивание с операцией)
+  , (вычисление нескольких выражений)
+
+*/
+
+
+console.log('\n- Проблемы:');
+console.log("10000000000000008 + 10000000000000001 (20000000000000010):", 10000000000000008 + 10000000000000001); // 20000000000000010
+console.log("10/3 (3.3333333333333335):", 10/3); // 3.3333333333333335
+
 
 // ИНСТРУКЦИИ
 
@@ -63,4 +265,16 @@ console.log(myUndefined + ":" + typeof myUndefined);
 
 
 
-console.log('js.js ok');
+
+
+
+console.log('\n- js.js ok');
+
+let RR = 'Не сработало';
+let DD = true && (RR = 'Cработало'); // Сработало
+
+let RR2 = 'Не сработало';
+let DD2 = (RR2 = 'Cработало') && true; // true
+
+console.log(RR, DD);
+console.log(RR2, DD2);

@@ -33,13 +33,13 @@ ip a
 apt install mc
 
 NGINX:
-apt update
-apt upgrade
+apt update && apt upgrade -y
 apt install curl gnupg2 ca-certificates lsb-release
 apt install nginx
 systemctl start nginx
 systemctl enable nginx
 nginx -v
+systemctl status nginx
 //ufw allow 'Nginx HTTP'
 
 
