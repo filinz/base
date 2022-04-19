@@ -120,11 +120,11 @@ let myInf1 = Infinity === Infinity, // true
 console.log('\n- Infinity:')
 console.log("1e+308 (1e+308):", 1e+308);
 console.log("1e+309 (Infinity):", 1e+309);
-console.log("(true):", myInf1, myInf2, myInf3);
-console.log("(false):", myInf4, myInf5);
-console.log("(Infinity):", myInf6, myInf12, myInf13, myInf14, myInf15, myInf17);
+console.log("(true x3):", myInf1, myInf2, myInf3);
+console.log("(false x2):", myInf4, myInf5);
+console.log("(Infinity x6):", myInf6, myInf12, myInf13, myInf14, myInf15, myInf17);
 console.log("(-Infinity):", myInf7);
-console.log("(NaN):", myInf8, myInf9, myInf10, myInf11);
+console.log("(NaN x4):", myInf8, myInf9, myInf10, myInf11);
 console.log("(0):", myInf16);
 
 let myUnderflow1 = 1e-323, // отличимо от 0
@@ -138,6 +138,7 @@ console.log("1e-324 (0):", myUnderflow2);
 let myStrSingle = 'Строка в одиночных кавычках',
     myStrDouble = "Строка в двойных кавычках",
     myStrBack = `Строка в обратных кавычках`,
+    // одинаковые строки с разными кавычками строго равны
 
     myStrIn1 = 'Одиночные "Двойные" `Обратные` Одиночные',
     myStrIn2 = "Двойные 'Одиночные' `Обратные` Двойные",
@@ -173,34 +174,54 @@ console.log('Cимвол UTF-16 (1):', myStrUtf16);
 console.log('Cимвол UTF-32 (гамбургер):', myStrUtf32);
 
 // ЛОГИЧЕСКИЕ ЗНАЧЕНИЯ
-let yep = true,
-    nope = false,
-    nope2 = !yep,
+let myYes = true,
+    myNo = false,
+    myNo2 = !myYes,
 
     // только эти значения дают false
-    myBoolUndef1 = Boolean(0),
-    myBoolUndef2 = Boolean(""),
-    myBoolUndef3 = Boolean(null),
-    myBoolUndef4 = Boolean(NaN),
-    myBoolUndef5 = Boolean(undefined),
+    myBoolUndef1 = Boolean(0), // false
+    myBoolUndef2 = Boolean(""), // false
+    myBoolUndef3 = Boolean(null), // false
+    myBoolUndef4 = Boolean(NaN), // false
+    myBoolUndef5 = Boolean(undefined), // false
 
-    myNullUndef1 = null == undefined,
-    myNullUndef2 = null === undefined,
+    myNullUndef1 = null == undefined, // true
+    myNullUndef2 = null === undefined, // false
+
+    // при сравнении разных типов с помощью === всегда false
 
     myResult1 = 'Не сработало',
     myResult2 = 'Не сработало',
-    myDoResult1 = true && (myResult1 = 'Cработало'), // Справа сработает, если левое истина
-    myDoResult2 = false && (myResult2 = 'Cработало'),
+    myDo1 = true && (myResult1 = 'Cработало'), // Справа сработает, если левое истина
+    myDo2 = false && (myResult2 = 'Cработало'),
 
     myStrBool1 = "Непустая строка" || "Строка по-умолчанию", // возьмется первая
-    myStrBool2 = "" || "Строка по-умолчанию"; // возьмется вторая
+    myStrBool2 = "" || "Строка по-умолчанию", // возьмется вторая
 
-/*
-isTrue && (a = 5); - Справа сработает, если левое истина
-*/
+    // строки сравниваются посимвольно
+    myBool1 = 'z' > 'a', // true, 122>97
+    myBool2 = 'az' > 'axzzz', // true, a === a, z > a, дальше не проверяем
+    myBool3 = 'z' > 'Z', // true, 122>90
+    myBool4 = '10' < '5', // true
+    myBool5 = '10' > '05', // true
+
+    // сравнение строк и чисел
+    // при сравнении разных типов JS пытается привести сравниваемые значения к числу
+    myBool6 = '10' > 5, // true, 10>5
+    myBool7 = 10 > '5', // true, 10>5
+    myBool8 = 10 > 'x', // false, 'x' не число (NaN)
+    myBool9 = 10 < 'x', // false, 'x' не число (NaN)
+
+    // сравнения с boolean сводятся к сравнению чисел (true - 1, false - 0)
+    myBool10 = 1 > false, // true, 1>0
+    myBool11 = 0 < true, // true, 0<1
+    myBool12 = '10' > true, // true, 10>1
+    myBool13 = '1' > true, // false, 1>1
+    myBool14 = '1' > false, // true, 1>0
+    myBool15 = 'x' > true; // false, NaN>1
 
 console.log("\n- Логические значения:");
-console.log("(true false false):", yep, nope, nope2);
+console.log("(true false false):", myYes, myNo, myNo2);
 console.log("Boolean 0 (false):", myBoolUndef1);
 console.log('Boolean "" (false):', myBoolUndef2);
 console.log("Boolean null (false):", myBoolUndef3);
@@ -208,13 +229,15 @@ console.log("Boolean NaN (false):", myBoolUndef4);
 console.log("Boolean undefined (false):", myBoolUndef5);
 console.log("null == undefined (true):", myNullUndef1);
 console.log("null === undefined (false):", myNullUndef2);
-
-console.log("(Сработало):", myDoResult1, myResult1);
-console.log("(Не сработало):", myDoResult2, myResult2);
-
+console.log("(Сработало):", myResult1);
+console.log("(Не сработало):", myResult2);
 console.log("(Непустая строка):", myStrBool1);
 console.log("(Строка по-умолчанию):", myStrBool2);
-
+console.log("Сравнение строк (true x5):", myBool1, myBool2, myBool3, myBool4, myBool5);
+console.log("Сравнение строк и чисел (true x2):", myBool6, myBool7);
+console.log("Сравнение строк и чисел (false x2):", myBool8, myBool9);
+console.log("Сравнение с boolean (true x4):", myBool10, myBool11, myBool12, myBool14);
+console.log("Сравнение с boolean (false x2):", myBool13, myBool15);
 
 // ВЫРАЖЕНИЯ И ОПЕРАТОРЫ
 
@@ -269,12 +292,3 @@ console.log("10/3 (3.3333333333333335):", 10/3); // 3.3333333333333335
 
 
 console.log('\n- js.js ok');
-
-let RR = 'Не сработало';
-let DD = true && (RR = 'Cработало'); // Сработало
-
-let RR2 = 'Не сработало';
-let DD2 = (RR2 = 'Cработало') && true; // true
-
-console.log(RR, DD);
-console.log(RR2, DD2);
