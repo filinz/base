@@ -36,6 +36,8 @@ let myBin = 0b1100100,
     myDec = 100,
     myHex = 0x64;
 
+var i = 0; // счетчик для циклов
+
 const CON = 100;
 
 console.log('\n- Типы данных:');
@@ -94,11 +96,11 @@ console.log("pow 16, 0.5 (4):", myPowSqrt);
 console.log("random (rnd 0-1):", myRandom);
 console.log("random 0-99 (rnd 0-99):", myRnd99);
 
-let myInf1 = Infinity === Infinity, // true
-    myInf2 = Infinity >= Infinity, // true
-    myInf3 = Infinity <= Infinity, // true
-    myInf4 = Infinity > Infinity, // false
-    myInf5 = Infinity < Infinity, // false
+let myInf1 = Infinity === Infinity, // +
+    myInf2 = Infinity >= Infinity, // +
+    myInf3 = Infinity <= Infinity, // +
+    myInf4 = Infinity > Infinity, // -
+    myInf5 = Infinity < Infinity, // -
 
     myInf6 = Infinity + Infinity, // Infinity
     myInf7 = -Infinity - Infinity, // -Infinity
@@ -268,6 +270,120 @@ console.log("Сравнение с boolean (false x2):", myBool13, myBool15);
 
 */
 
+// ОПЕРАТОРЫ УСЛОВИЙ (УСЛОВНЫЕ ИНСТРУКЦИИ)
+let myCondition1, myCondition2, myCondition3;
+if (myCondition1) {
+  // при соблюдении условия 1
+} else if (myCondition2) {
+  // при соблюдении условия 2
+} else if (myCondition3) {
+  // при соблюдении условия 3
+} else {
+  // ни одно условие не соблюдено
+}
+
+let myCoice;
+switch (myCoice) {
+  case 1:
+    //
+    break;
+  case 2:
+    //
+    break;
+  case 3:
+    //
+    break;
+  default:
+    //
+    break;
+}
+
+// тернарный оператор
+let myTernarResult, MyTernarCondition, myTernarResult1, myTernarResult2;
+myTernarResult = MyTernarCondition ? myTernarResult1 : myTernarResult2;
+
+// оператор запятая - вычисляет все значния и возвращает последнее
+let myZpt = (1, 2, 3);
+console.log('1, 2, 3 = ? (3)', myZpt);
+
+
+// МАССИВЫ
+let myAlphabet = ['Г', 'Д'];
+let myAlphabet2 = new Array('Г', 'Д'); // альтернативное объявление
+
+myAlphabet.push('Е', 'Ж', 'З'); // добавление в конец
+myAlphabet.unshift('А', 'Б', 'В'); // добавление в начало
+myAlphabet[0] = 'А';
+
+myAlphabet.length; // длина массива
+
+console.log('\n- Массивы:');
+console.log(myAlphabet);
+console.log('Длина массива:', myAlphabet.length);
+console.log('Тип данных: ', typeof myAlphabet); // object
+
+// ЦИКЛЫ
+/*
+Цикл уменьшения быстрее
+Чем проще условие - тем быстрее цикл
+*/
+let myLoop = ['Элемент0', 'Элемент1', 'Элемент2', 'Элемент3'];
+
+let outLoop1 = 'for: ';
+for (let i = 0; i <= 3; i++) { // цикл for
+  outLoop1 += `${myLoop[i]} `;
+}
+
+let outLoop2 = 'for of: ';
+for (let elem of myLoop) { // перебор элементов массива
+  outLoop2 += `${elem} `;
+}
+
+let outLoop3 = 'for in: ';
+for (let index in myLoop) { // перебор индексов массива
+  outLoop3 += `${index}=${myLoop[index]} `;
+}
+
+let outLoop4 = 'while: ';
+i = 0;
+while (i <= 3) { // цикл while
+  outLoop4 += `${myLoop[i]} `;
+  i++;
+}
+
+let outLoop5 = 'do-while: ';
+i = 0;
+do { // цикл do-while
+  outLoop5 += `${myLoop[i]} `;
+  i++;
+} while (i <= 3);
+
+let outLoop6 = 'continue & break (c c b): ';
+for (let elem of myLoop) { // continue & break
+  if (elem != 'Элемент2') {
+    outLoop6 += 'continue ';
+    continue;
+  }
+  if (elem == 'Элемент2') {
+    outLoop6 += 'break ';
+    break;
+  }
+  outLoop6 += 'Ошибка_break!';
+}
+
+
+console.log('\n- Циклы:');
+console.log(outLoop1);
+console.log(outLoop2);
+console.log(outLoop3);
+console.log(outLoop4);
+console.log(outLoop5);
+console.log(outLoop6);
+
+
+
+
+
 
 console.log('\n- Проблемы:');
 console.log("10000000000000008 + 10000000000000001 (20000000000000010):", 10000000000000008 + 10000000000000001); // 20000000000000010
@@ -277,8 +393,6 @@ console.log("10/3 (3.3333333333333335):", 10/3); // 3.3333333333333335
 // ИНСТРУКЦИИ
 
 // ОБЪЕКТЫ
-
-// МАССИВЫ
 
 // ФУНКЦИИ
 
