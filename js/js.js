@@ -23,6 +23,9 @@ let myNumber = 12, // number - все числа вещественные, от 
       несущ. элемент массива
       непереданный в функцию параметр
       если функция ничего не возвращает
+
+    JS выражает пустоту с помощью undefined
+    в коде следует использовать null
     */
 
 let myExp = 2e3,
@@ -242,7 +245,6 @@ console.log("Сравнение с boolean (true x4):", myBool10, myBool11, myBo
 console.log("Сравнение с boolean (false x2):", myBool13, myBool15);
 
 // ВЫРАЖЕНИЯ И ОПЕРАТОРЫ
-
 /*
 Операторы:
   Оператор присваивания = работает справа налево
@@ -282,8 +284,8 @@ if (myCondition1) {
   // ни одно условие не соблюдено
 }
 
-let myCoice;
-switch (myCoice) {
+let myChoice;
+switch (myChoice) {
   case 1:
     //
     break;
@@ -371,7 +373,6 @@ for (let elem of myLoop) { // continue & break
   outLoop6 += 'Ошибка_break!';
 }
 
-
 console.log('\n- Циклы:');
 console.log(outLoop1);
 console.log(outLoop2);
@@ -379,7 +380,6 @@ console.log(outLoop3);
 console.log(outLoop4);
 console.log(outLoop5);
 console.log(outLoop6);
-
 
 // ФУНКЦИИ
 /*
@@ -409,6 +409,10 @@ console.log('Вызов функции: ' + myFunction1());
 console.log('Вызов функции из переменной: ' + myFunction2());
 console.log('Вызов функции с аргументами (А1,А2,АУ): ' + myFunction3('Арг1', 'Арг2'));
 
+
+
+// ПРОБЛЕМЫ
+
 console.log('\n- Проблемы:');
 console.log("10000000000000008 + 10000000000000001 (20000000000000010):", 10000000000000008 + 10000000000000001); // 20000000000000010
 console.log("10/3 (3.3333333333333335):", 10/3); // 3.3333333333333335
@@ -417,8 +421,6 @@ console.log("10/3 (3.3333333333333335):", 10/3); // 3.3333333333333335
 // ИНСТРУКЦИИ
 
 // ОБЪЕКТЫ
-
-// ФУНКЦИИ
 
 // КЛАССЫ И МОДУЛИ
 
