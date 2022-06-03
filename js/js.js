@@ -51,8 +51,8 @@ console.log(myBoolean + " (boolean):", typeof myBoolean);
 console.log(myNull + " (object):", typeof myNull);
 console.log(myInf + " (number):", typeof myInf);
 console.log(myUndefined + " (undefined):", typeof myUndefined);
-console.log("\n- Экспоненциальная запись: ", myExp, myExp2, myExp3, myExp4);
-console.log("\n- Binary Octal Octal2 Decimal Hexadecimal: ", myBin, myOct, myOct2, myDec, myHex);
+console.log("\n- Экспоненциальная запись 2e3 2e-3 2.2e3 2.2e-3 (2000 0.002 2200 0.0022): ", myExp, myExp2, myExp3, myExp4);
+console.log("\n- Binary 0b1100100, Octal 0144, Octal2 0o144, Decimal 100, Hexadecimal 0x64 (все 100): ", myBin, myOct, myOct2, myDec, myHex);
 console.log("\n- Константа " + CON + " (number):", typeof CON);
 
 // MATH
@@ -321,8 +321,8 @@ myAlphabet.length; // длина массива
 
 console.log('\n- Массивы:');
 console.log(myAlphabet);
-console.log('Длина массива:', myAlphabet.length);
-console.log('Тип данных: ', typeof myAlphabet); // object
+console.log('Длина массива (8):', myAlphabet.length);
+console.log('Тип данных (object): ', typeof myAlphabet); // object
 
 // ЦИКЛЫ
 /*
@@ -404,11 +404,56 @@ function myFunction3(arg1, arg2, arg3 = 'АргУмолч') { // функция 
   return(`${arg1} ${arg2} ${arg3}`);
 }
 
-console.log('\n- Функции:');
-console.log('Вызов функции: ' + myFunction1());
-console.log('Вызов функции из переменной: ' + myFunction2());
-console.log('Вызов функции с аргументами (А1,А2,АУ): ' + myFunction3('Арг1', 'Арг2'));
+// объект arguments, ведет себя как массив
+let myFunction4 = function (a1, a2) {
+  return (arguments.length);
+};
 
+// функция может быть возвращаемым значением
+let myFunction5 = function () {
+  return function () {
+    console.log("анонимная функция как возвращаемое значение");
+  }
+};
+
+console.log('\n- Функции:');
+console.log('Тип функции() (string): ', typeof(myFunction1()));
+console.log('Тип функции (function): ', typeof(myFunction1));
+console.log('Вызов функции:', myFunction1());
+console.log('Вызов функции из переменной:', myFunction2());
+console.log('Вызов функции с аргументами (Арг1, Арг2, АргУмолч):', myFunction3('Арг1', 'Арг2'));
+console.log('Объект arguments (длина массива с 4-мя переданными аргументами):', myFunction4('Арг1', 'Арг2', 'Арг3', 'Арг4'));
+console.log('Возврат функции в качестве значения (текст функции):\n', myFunction5() ); // myFunction5()() для вызова
+
+
+// ОБЪЕКТЫ
+
+let prop1 = 'property 1',
+    prop2 = 'property 2';
+
+let myObj = {
+  prop1: prop1,
+  prop2, // название переменной соответствует названию свойства
+  'property with spaces': 'property with spaces',
+  'property.with.dots': 'property.with.dots',
+  forDelete: 'forDelete',
+  inObj: { inProp: 'internal property'},
+};
+
+delete myObj.forDelete;
+
+console.log('\n- Объекты:');
+console.log(myObj);
+console.log('(property 1):', myObj.prop1);
+console.log('(property 2):', myObj.prop2);
+console.log('(property with spaces):', myObj["property with spaces"]);
+console.log('(property.with.dots):', myObj["property.with.dots"]);
+console.log('deleted property (undefined):', myObj.forDelete);
+console.log('(internal property):', myObj.inObj.inProp);
+
+let myRegexp = /w+/g; // рег.выражения - object
+console.log('Regexp (/w+/g):', myRegexp);
+console.log('typeof regexp (object):', typeof(myRegexp));
 
 
 // ПРОБЛЕМЫ
@@ -420,7 +465,7 @@ console.log("10/3 (3.3333333333333335):", 10/3); // 3.3333333333333335
 
 // ИНСТРУКЦИИ
 
-// ОБЪЕКТЫ
+
 
 // КЛАССЫ И МОДУЛИ
 
