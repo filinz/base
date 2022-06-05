@@ -322,7 +322,7 @@ myAlphabet.length; // длина массива
 console.log('\n- Массивы:');
 console.log(myAlphabet);
 console.log('Длина массива (8):', myAlphabet.length);
-console.log('Тип данных (object): ', typeof myAlphabet); // object
+console.log('Тип данных массивов (object): ', typeof myAlphabet); // object
 
 // ЦИКЛЫ
 /*
@@ -432,15 +432,28 @@ let prop1 = 'property 1',
     prop2 = 'property 2';
 
 let myObj = {
-  prop1: prop1,
+  prop1: prop1, // свойство объекта
   prop2, // название переменной соответствует названию свойства
   'property with spaces': 'property with spaces',
   'property.with.dots': 'property.with.dots',
-  forDelete: 'forDelete',
-  inObj: { inProp: 'internal property'},
+  propForDelete: 'forDelete',
+  inObj: { inProp: 'internal property' },
+
+  doMethod: function () { // метод объекта
+    return this.prop1;
+  },
+
+  doMethod2() { // метод объекта
+    return this.prop2;
+  },
+
+  methodForDelete() {
+    return this.prop2;
+  },
 };
 
-delete myObj.forDelete;
+delete myObj.propForDelete;
+delete myObj.methodForDelete;
 
 console.log('\n- Объекты:');
 console.log(myObj);
@@ -448,12 +461,58 @@ console.log('(property 1):', myObj.prop1);
 console.log('(property 2):', myObj.prop2);
 console.log('(property with spaces):', myObj["property with spaces"]);
 console.log('(property.with.dots):', myObj["property.with.dots"]);
-console.log('deleted property (undefined):', myObj.forDelete);
+console.log('удаление свойства (undefined):', myObj.propForDelete);
 console.log('(internal property):', myObj.inObj.inProp);
+console.log('метод (property 1):', myObj.doMethod());
+console.log('альтернативная запись метода (property 2):', myObj.doMethod2());
+console.log('удаление метода (undefined):', myObj.methodForDelete);
 
+// объединение объектов
+let myObj2 = {
+  prop3: 'property 3',
+};
+
+let myObj3 = {
+  prop3: 'property 3 new',
+};
+
+let myUnitedObj1 = {
+  prop0: 'property 0',
+  ...myObj2, // оператор "спрэд"
+  ...myObj3, // свойство prop3 переопределится
+};
+
+let myUnitedObj2 = Object.assign(
+  { prop0: 'property 0' }, // целевой объект, к нему будут добавлены остальные (и он изменится!)
+  myObj2,
+  myObj3
+);
+
+console.log('\nОбъединение объектов 1 (prop 0, prop 3 new):', myUnitedObj1);
+console.log('Объединение объектов 2 (prop 0, prop 3 new):', myUnitedObj2);
+
+// получение свойств объекта
+console.log('\nПолучение свойств объекта:');
+console.log('keys: ', Object.keys(myUnitedObj1));
+console.log('values: ', Object.values(myUnitedObj1));
+console.log('entries: ', Object.entries(myUnitedObj1));
+
+// ссылка на объект
+let otherObj = myObj; // копируется ссылка на объект
+otherObj.prop0 = 'property 0 new';
+
+console.log('Изменение скопированного объекта (property 0 new):', myObj.prop0);
+
+console.log('Сравнение объектов по ссылке (true):', myObj === otherObj); // объекты равны только когда ссылки указывают на один объект
+console.log('Сравнение объектов с одинаковым содержимым (false false):', { prop: '1' } == { prop: '1' }, { prop: '1' } === { prop: '1' });
+
+
+
+// регулярные выражения
+console.log('\n- Регулярные выражения:');
 let myRegexp = /w+/g; // рег.выражения - object
 console.log('Regexp (/w+/g):', myRegexp);
-console.log('typeof regexp (object):', typeof(myRegexp));
+console.log('Тип данных regexp (object):', typeof(myRegexp));
 
 
 // ПРОБЛЕМЫ
