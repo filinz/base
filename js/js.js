@@ -447,28 +447,27 @@ console.log('Возврат функции в качестве значения 
 
 // ОБЪЕКТЫ
 
-let prop1 = 'property 1',
-    prop2 = 'property 2';
+let prop1 = 'prop 1',
+    prop2 = 'prop 2',
+    propKey = 'prop';
 
-let myObj = {
+let myObj = { // синтаксис "литерал"
   prop1: prop1, // свойство объекта
   prop2, // название переменной соответствует названию свойства
+  [propKey]: 'prop', // вычисляемое при объявлении свойство
   'property with spaces': 'property with spaces',
   'property.with.dots': 'property.with.dots',
   propForDelete: 'forDelete',
   inObj: { inProp: 'internal property' },
-
   doMethod: function () { // метод объекта
     return this.prop1;
   },
-
   doMethod2() { // метод объекта
     return this.prop2;
   },
-
   methodForDelete() {
     return this.prop2;
-  },
+  }, // висячая запятая
 };
 
 delete myObj.propForDelete;
@@ -476,35 +475,42 @@ delete myObj.methodForDelete;
 
 console.log('\n- Объекты:');
 console.log(myObj);
-console.log('(property 1):', myObj.prop1);
-console.log('(property 2):', myObj.prop2);
+console.log('(prop 1):', myObj.prop1);
+console.log('(prop 2):', myObj.prop2);
 console.log('(property with spaces):', myObj["property with spaces"]);
 console.log('(property.with.dots):', myObj["property.with.dots"]);
-console.log('удаление свойства (undefined):', myObj.propForDelete);
+let objKey = 'prop1';
+console.log('Вычисляемый ключ объекта (prop 1):', myObj[objKey]);
+console.log('Вычисляемое свойство объекта при объявлении (prop):', myObj.prop);
+console.log('Удаление свойства (undefined):', myObj.propForDelete);
 console.log('(internal property):', myObj.inObj.inProp);
-console.log('метод (property 1):', myObj.doMethod());
-console.log('альтернативная запись метода (property 2):', myObj.doMethod2());
-console.log('удаление метода (undefined):', myObj.methodForDelete);
+console.log('Метод (prop 1):', myObj.doMethod());
+console.log('Альтернативная запись метода (prop 2):', myObj.doMethod2());
+console.log('Удаление метода (undefined):', myObj.methodForDelete);
+
+let myObj2 = new Object(); // синтаксис "конструктор объекта"
+myObj2.prop1 = 'prop 1';
+console.log("Синтаксис 'конструктор объекта'( {prop1: 'prop 1'} ):", myObj2);
 
 // Объединение объектов
-let myObj2 = {
-  prop3: 'property 3',
+let myObj3 = {
+  prop3: 'prop 3',
 };
 
-let myObj3 = {
-  prop3: 'property 3 new',
+let myObj4 = {
+  prop3: 'prop 3 new',
 };
 
 let myUnitedObj1 = {
-  prop0: 'property 0',
-  ...myObj2, // оператор "спрэд"
-  ...myObj3, // свойство prop3 переопределится
+  prop0: 'prop 0',
+  ...myObj3, // оператор "спрэд"
+  ...myObj4, // свойство prop3 переопределится
 };
 
 let myUnitedObj2 = Object.assign(
-  { prop0: 'property 0' }, // целевой объект, к нему будут добавлены остальные (и он изменится!)
-  myObj2,
-  myObj3
+  { prop0: 'prop 0' }, // целевой объект, к нему будут добавлены остальные (и он изменится!)
+  myObj3,
+  myObj4
 );
 
 console.log('\nОбъединение объектов 1 (prop 0, prop 3 new):', myUnitedObj1);
@@ -539,12 +545,40 @@ for (let key in myUnitedObj1) { // устаревший способ переб�
 
 // Ссылка на объект
 let otherObj = myObj; // копируется ссылка на объект
-otherObj.prop1 = 'property 1 new';
+otherObj.prop1 = 'prop 1 new';
 
-console.log('\nИзменение скопированного объекта (property 1 new):', myObj.prop1);
+console.log('\nИзменение скопированного объекта (prop 1 new):', myObj.prop1);
 
 console.log('Сравнение объектов по ссылке (true):', myObj === otherObj); // объекты равны только когда ссылки указывают на один объект
 console.log('Сравнение объектов с одинаковым содержимым (false false):', { prop: '1' } == { prop: '1' }, { prop: '1' } === { prop: '1' });
+
+// Объявление объекта через const
+const myConstObj = {
+  prop1: 'prop 1',
+}
+myConstObj.prop1 = 'prop 1 new';
+console.log('\nИзменение объекта, объявленного через const (prop 1 new):', myConstObj.prop1);
+
+// Проверка существования свойства (in)
+console.log('Проверка существования свойства объекта (true false true):', 'prop1' in myObj, 'propNO' in myObj, objKey in myObj); // без кавычек подставляется переменная
+
+// Порядок свойств объекта
+/*
+свойства с целочисленными ключами сортируются по возрастанию
+остальные располагаются в порядке создания
+целочисленные свойства - те, которые преобразовываются в целое число и обратно без изменений (нецелочисленные: 1.2 , +7)
+*/
+let mySortObj = {
+  "prop3": "prop3",
+  43: "43",
+  44: "44",
+  "prop2": "prop2",
+  45: "45",
+  "prop1": "prop1",
+  1: "1",
+}
+console.log('\n- Порядок свойств объекта (упоряд.численные + неупоряд.символьные ключи):');
+console.log(Object.keys(mySortObj));
 
 // Регулярные выражения
 console.log('\n- Регулярные выражения:');
