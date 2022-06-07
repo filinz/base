@@ -8,13 +8,17 @@
 
 
 // ТИПЫ ДАННЫХ, ЗНАЧЕНИЯ И ПЕРЕМЕННЫЕ
-// ПРОСТЫЕ ТИПЫ
-let myNumber = 12, // number - все числа вещественные, от -2^53 до 2^53
-    myNumber2 = 1.45, // number
+// Простые типы
+/* Значения копируются при присваивании (передаются по значению) */
+let myBoolean = true, // boolean
+    myNumber = 100, // number - все числа вещественные, от -2^53 до 2^53
+    myNumber2 = 10.45, // number
     myString = "строка", // string
-    myBoolean = true, // boolean
-    myNull = null, // object (ошибка typeof)
+    mySymbol = Symbol(), // symbol
+    myBigInt = 100n,
     myInf = Infinity, // number (бесконечность - выход за пределы)
+    // нулевые типы
+    myNull = null, // object (ошибка typeof)
     myUndefined = undefined; // undefined
     /*
     undefined:
@@ -43,17 +47,32 @@ var i = 0; // счетчик для циклов
 
 const CON = 100;
 
-console.log('\n- Типы данных:');
+console.log('\n- Простые типы данных:');
+console.log(myBoolean + " (boolean):", typeof myBoolean);
 console.log(myNumber + " (number):", typeof myNumber);
 console.log(myNumber2 + " (number):", typeof myNumber2);
 console.log(myString + " (string):", typeof myString);
-console.log(myBoolean + " (boolean):", typeof myBoolean);
-console.log(myNull + " (object):", typeof myNull);
+console.log("(symbol):", typeof mySymbol);
+console.log(myBigInt + " (bigint):", typeof myBigInt);
 console.log(myInf + " (number):", typeof myInf);
+console.log('\n- Нулевые типы данных:');
+console.log(myNull + " (object):", typeof myNull);
 console.log(myUndefined + " (undefined):", typeof myUndefined);
 console.log("\n- Экспоненциальная запись 2e3 2e-3 2.2e3 2.2e-3 (2000 0.002 2200 0.0022): ", myExp, myExp2, myExp3, myExp4);
 console.log("\n- Binary 0b1100100, Octal 0144, Octal2 0o144, Decimal 100, Hexadecimal 0x64 (все 100): ", myBin, myOct, myOct2, myDec, myHex);
 console.log("\n- Константа " + CON + " (number):", typeof CON);
+
+// Сложные типы
+/*
+являются ссылочным типом (копируются ссылки при присваивании)
+могут объединять в себе значения других типов
+массивы и функции - частные случаи объектов
+*/
+
+console.log('\n- Сложные типы данных:');
+console.log('typeof {} (object):', typeof {});
+console.log('typeof [] (object):', typeof []);
+console.log('typeof function (function):', typeof function(){});
 
 // MATH
 let myAbs = Math.abs(-20), // 20, абсолютное значение по модулю
@@ -300,11 +319,11 @@ switch (myChoice) {
     break;
 }
 
-// тернарный оператор
+// Тернарный оператор
 let myTernarResult, MyTernarCondition, myTernarResult1, myTernarResult2;
 myTernarResult = MyTernarCondition ? myTernarResult1 : myTernarResult2;
 
-// оператор запятая - вычисляет все значния и возвращает последнее
+// Оператор запятая - вычисляет все значния и возвращает последнее
 let myZpt = (1, 2, 3);
 console.log('1, 2, 3 = ? (3)', myZpt);
 
@@ -326,8 +345,8 @@ console.log('Тип данных массивов (object): ', typeof myAlphabet
 
 // ЦИКЛЫ
 /*
-Цикл уменьшения быстрее, чем увеличения
-Чем проще условие - тем быстрее цикл
+цикл уменьшения быстрее, чем увеличения
+чем проще условие - тем быстрее цикл
 */
 let myLoop = ['Элемент0', 'Элемент1', 'Элемент2', 'Элемент3'];
 
@@ -404,12 +423,12 @@ function myFunction3(arg1, arg2, arg3 = 'АргУмолч') { // функция 
   return(`${arg1} ${arg2} ${arg3}`);
 }
 
-// объект arguments, ведет себя как массив
+// Объект arguments, ведет себя как массив
 let myFunction4 = function (a1, a2) {
   return (arguments.length);
 };
 
-// функция может быть возвращаемым значением
+// Функция может быть возвращаемым значением
 let myFunction5 = function () {
   return function () {
     console.log("анонимная функция как возвращаемое значение");
@@ -467,7 +486,7 @@ console.log('метод (property 1):', myObj.doMethod());
 console.log('альтернативная запись метода (property 2):', myObj.doMethod2());
 console.log('удаление метода (undefined):', myObj.methodForDelete);
 
-// объединение объектов
+// Объединение объектов
 let myObj2 = {
   prop3: 'property 3',
 };
@@ -491,24 +510,43 @@ let myUnitedObj2 = Object.assign(
 console.log('\nОбъединение объектов 1 (prop 0, prop 3 new):', myUnitedObj1);
 console.log('Объединение объектов 2 (prop 0, prop 3 new):', myUnitedObj2);
 
-// получение свойств объекта
+// Получение свойств объекта
 console.log('\nПолучение свойств объекта:');
 console.log('keys: ', Object.keys(myUnitedObj1));
+for (let key of Object.keys(myUnitedObj1)) {
+  console.log(`key ${key} - ${myUnitedObj1[key]}`);
+}
+
 console.log('values: ', Object.values(myUnitedObj1));
+for (let value of Object.values(myUnitedObj1)) {
+  console.log(`value ${value}`);
+}
+
 console.log('entries: ', Object.entries(myUnitedObj1));
+for (let entry of Object.entries(myUnitedObj1)) {
+  console.log(`${entry[0]} - ${entry[1]}`);
+}
+for (let [key, value] of Object.entries(myUnitedObj1)) { // деструктуризация
+  console.log(`${key} - ${value}`);
+}
 
-// ссылка на объект
+for (let key in myUnitedObj1) { // устаревший способ перебора объекта
+  if (!myUnitedObj1.hasOwnProperty(key)) {
+    continue;
+  }
+  console.log(`${key} - ${myUnitedObj1[key]}`);
+}
+
+// Ссылка на объект
 let otherObj = myObj; // копируется ссылка на объект
-otherObj.prop0 = 'property 0 new';
+otherObj.prop1 = 'property 1 new';
 
-console.log('Изменение скопированного объекта (property 0 new):', myObj.prop0);
+console.log('\nИзменение скопированного объекта (property 1 new):', myObj.prop1);
 
 console.log('Сравнение объектов по ссылке (true):', myObj === otherObj); // объекты равны только когда ссылки указывают на один объект
 console.log('Сравнение объектов с одинаковым содержимым (false false):', { prop: '1' } == { prop: '1' }, { prop: '1' } === { prop: '1' });
 
-
-
-// регулярные выражения
+// Регулярные выражения
 console.log('\n- Регулярные выражения:');
 let myRegexp = /w+/g; // рег.выражения - object
 console.log('Regexp (/w+/g):', myRegexp);
