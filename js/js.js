@@ -11,11 +11,14 @@
 // Простые типы
 /* Значения копируются при присваивании (передаются по значению) */
 let myBoolean = true, // boolean
+
     myNumber = 100, // number - все числа вещественные, от -2^53 до 2^53
-    myNumber2 = 10.45, // number
+    myNumber2 = 10.45, // тоже number
+    myNumber3 = Number.MAX_SAFE_INTEGER,
+
     myString = "строка", // string
     mySymbol = Symbol(), // symbol
-    myBigInt = 100n,
+    myBigInt = 1000111222333444555666777888999000999888777666555444333222111000n, // равен number при нестрогом сравнении
     myInf = Infinity, // number (бесконечность - выход за пределы)
     // нулевые типы
     myNull = null, // object (ошибка typeof)
@@ -51,6 +54,7 @@ console.log('\n- Простые типы данных:');
 console.log(myBoolean + " (boolean):", typeof myBoolean);
 console.log(myNumber + " (number):", typeof myNumber);
 console.log(myNumber2 + " (number):", typeof myNumber2);
+console.log("MAX_SAFE_INTEGER (9007199254740991 number):", myNumber3, typeof myNumber3);
 console.log(myString + " (string):", typeof myString);
 console.log("(symbol):", typeof mySymbol);
 console.log(myBigInt + " (bigint):", typeof myBigInt);
@@ -400,6 +404,7 @@ console.log(outLoop4);
 console.log(outLoop5);
 console.log(outLoop6);
 
+
 // ФУНКЦИИ
 /*
 если аргументов передано меньше, чем нужно - остальные будут undefined
@@ -423,7 +428,8 @@ function myFunction3(arg1, arg2, arg3 = 'АргУмолч') { // функция 
   return(`${arg1} ${arg2} ${arg3}`);
 }
 
-// Объект arguments, ведет себя как массив
+// Объект arguments
+/* ведет себя как массив, но не поддерживает методы массивов */
 let myFunction4 = function (a1, a2) {
   return (arguments.length);
 };
@@ -458,13 +464,17 @@ let myObj = { // синтаксис "литерал"
   'property with spaces': 'property with spaces',
   'property.with.dots': 'property.with.dots',
   propForDelete: 'forDelete',
+
   inObj: { inProp: 'internal property' },
-  doMethod: function () { // метод объекта
+
+  doMethod: function () { // метод объекта, длинная запись
     return this.prop1;
   },
-  doMethod2() { // метод объекта
+
+  doMethod2() { // метод объекта, короткая запись
     return this.prop2;
   },
+
   methodForDelete() {
     return this.prop2;
   }, // висячая запятая
@@ -510,29 +520,35 @@ let myUnitedObj1 = {
 let myUnitedObj2 = Object.assign(
   { prop0: 'prop 0' }, // целевой объект, к нему будут добавлены остальные (и он изменится!)
   myObj3,
-  myObj4
+  myObj4,
 );
 
 console.log('\nОбъединение объектов 1 (prop 0, prop 3 new):', myUnitedObj1);
 console.log('Объединение объектов 2 (prop 0, prop 3 new):', myUnitedObj2);
 
 // Получение свойств объекта
+let values = Object.values(myUnitedObj1),
+    keys = Object.keys(myUnitedObj1),
+    entries = Object.entries(myUnitedObj1);
+
 console.log('\nПолучение свойств объекта:');
-console.log('keys: ', Object.keys(myUnitedObj1));
-for (let key of Object.keys(myUnitedObj1)) {
-  console.log(`key ${key} - ${myUnitedObj1[key]}`);
+console.log('keys: ', keys);
+
+for (let key of keys) {
+  console.log(`${key} - ${myUnitedObj1[key]}`);
 }
 
-console.log('values: ', Object.values(myUnitedObj1));
-for (let value of Object.values(myUnitedObj1)) {
-  console.log(`value ${value}`);
+console.log('values: ', values);
+for (let value of values) {
+  console.log(`${value}`);
 }
 
-console.log('entries: ', Object.entries(myUnitedObj1));
-for (let entry of Object.entries(myUnitedObj1)) {
+console.log('entries: ', entries);
+for (let entry of entries) {
   console.log(`${entry[0]} - ${entry[1]}`);
 }
-for (let [key, value] of Object.entries(myUnitedObj1)) { // деструктуризация
+
+for (let [key, value] of entries) { // деструктуризация
   console.log(`${key} - ${value}`);
 }
 
@@ -580,11 +596,14 @@ let mySortObj = {
 console.log('\n- Порядок свойств объекта (упоряд.численные + неупоряд.символьные ключи):');
 console.log(Object.keys(mySortObj));
 
+
+
 // Регулярные выражения
 console.log('\n- Регулярные выражения:');
 let myRegexp = /w+/g; // рег.выражения - object
 console.log('Regexp (/w+/g):', myRegexp);
-console.log('Тип данных regexp (object):', typeof(myRegexp));
+console.log('Тип данных regexp (object):', typeof(myRegexp)); // function для Chrome 1-12
+
 
 
 // ПРОБЛЕМЫ
@@ -608,3 +627,6 @@ console.log("10/3 (3.3333333333333335):", 10/3); // 3.3333333333333335
 
 
 console.log('\n- js.js ok');
+
+
+
