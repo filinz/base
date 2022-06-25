@@ -25,6 +25,26 @@ git config --global user.name "Mikhail Snytkov"
 git config --global user.email "coolfilinz@gmail.com"
 
 <hr>
+Создаем на github новый репозиторий
+
+cd d:/dev/
+клонируем, папки быть не должно:
+git clone https://github.com/filinz/base
+
+копируем файлы проекта внутрь появившейся папки
+
+cd base
+git status
+git add .
+git commit -m 'initial commit'
+git log
+git push
+
+<hr>
+Убрать "warning: LF will be replaced by CRLF" :
+git config --global core.autocrlf false
+
+<hr>
 git status
 информация об измененных и готовых к коммиту коммитах
 
