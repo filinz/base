@@ -418,7 +418,6 @@ function myFunction1() { // функция с названием
 let myFunction2 = function () { // анонимная функция
   return('Ок');
 };
-
 /*
 анономные функции нельзя вызвать до объявления
 в конце анонимных функций - точка с запятой (могут зацепиться следующие скобки  / проблемы с минимизацией)
@@ -461,17 +460,17 @@ let myObj = { // синтаксис "литерал"
   prop1: prop1, // свойство объекта
   prop2, // название переменной соответствует названию свойства
   [propKey]: 'prop', // вычисляемое при объявлении свойство
-  'property with spaces': 'property with spaces',
+  'property with spaces': 'property with spaces',  // альтернативный синтаксис
   'property.with.dots': 'property.with.dots',
   propForDelete: 'forDelete',
 
   inObj: { inProp: 'internal property' },
 
-  doMethod: function () { // метод объекта, длинная запись
+  doMethod: function () { // длинная запись метода
     return this.prop1;
   },
 
-  doMethod2() { // метод объекта, короткая запись
+  doMethod2() { // короткая запись метода
     return this.prop2;
   },
 
@@ -480,27 +479,29 @@ let myObj = { // синтаксис "литерал"
   }, // висячая запятая
 };
 
-delete myObj.propForDelete;
-delete myObj.methodForDelete;
-
 console.log('\n- Объекты:');
 console.log(myObj);
 console.log('(prop 1):', myObj.prop1);
 console.log('(prop 2):', myObj.prop2);
-console.log('(property with spaces):', myObj["property with spaces"]);
+console.log('(property with spaces):', myObj["property with spaces"]); // альтернативный синтаксис, для названий с пробелами и для названий в переменных
 console.log('(property.with.dots):', myObj["property.with.dots"]);
 let objKey = 'prop1';
 console.log('Вычисляемый ключ объекта (prop 1):', myObj[objKey]);
 console.log('Вычисляемое свойство объекта при объявлении (prop):', myObj.prop);
-console.log('Удаление свойства (undefined):', myObj.propForDelete);
 console.log('(internal property):', myObj.inObj.inProp);
 console.log('Метод (prop 1):', myObj.doMethod());
 console.log('Альтернативная запись метода (prop 2):', myObj.doMethod2());
+
+delete myObj.propForDelete;
+delete myObj.methodForDelete;
+
 console.log('Удаление метода (undefined):', myObj.methodForDelete);
+console.log('Удаление свойства (undefined):', myObj.propForDelete);
 
 let myObj2 = new Object(); // синтаксис "конструктор объекта"
 myObj2.prop1 = 'prop 1';
 console.log("Синтаксис 'конструктор объекта'( {prop1: 'prop 1'} ):", myObj2);
+
 
 // Объединение объектов
 let myObj3 = {
@@ -626,7 +627,7 @@ console.log("10/3 (3.3333333333333335):", 10/3); // 3.3333333333333335
 
 
 
-console.log('\n- js.js ok');
+console.log('\n- running js.js done');
 
 
 
