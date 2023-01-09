@@ -68,12 +68,35 @@ class Main extends Sprite {
 		//trace($type(myFunc(2, 2)));
 		$type(myFunc); // без аргументов - вывод сигнатуры функции, с аргументами - вывод типа возвращаемого результата
 		
+		
 		// Анонимные функции
-		var f = function(x, y) {
+		var myAnonimFunc = function(x, y) {
 			return x + y;
 		}
-		trace(f(2, 3));
+		trace(myAnonimFunc(2, 3));
 		
+		
+		// ИСКЛЮЧЕНИЯ
+		
+		function f(x:Float):Void {
+			if (x == 0) {
+				throw new String("Деление на ноль");
+			} else {
+				trace(1 / x);
+			}
+			return;
+		}
+		
+		try {
+			f(0);
+		} 
+		catch (e:String) {
+			// String - обработка ошибки, Error - обработка других типов ошибок, Dynamic - обработка всех остальных ошибок
+			trace(e);
+		}		
+		
+		
+		.return.
 		// Ввод-вывод данных - для neko
 		/*
 		Sys.println("Hello World и Мир!");		
