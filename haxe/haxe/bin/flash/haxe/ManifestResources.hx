@@ -1,6 +1,5 @@
 package;
 
-
 import haxe.io.Bytes;
 import lime.utils.AssetBundle;
 import lime.utils.AssetLibrary;
@@ -11,6 +10,18 @@ import lime.utils.Assets;
 import sys.FileSystem;
 #end
 
+#if disable_preloader_assets
+@:dox(hide) class ManifestResources {
+	public static var preloadLibraries:Array<Dynamic>;
+	public static var preloadLibraryNames:Array<String>;
+	public static var rootPath:String;
+
+	public static function init (config:Dynamic):Void {
+		preloadLibraries = new Array ();
+		preloadLibraryNames = new Array ();
+	}
+}
+#else
 @:access(lime.utils.Assets)
 
 
@@ -66,15 +77,8 @@ import sys.FileSystem;
 
 		#else
 
-		data = '{"name":null,"assets":"ah","rootPath":null,"version":2,"libraryArgs":[],"libraryType":null}';
-		manifest = AssetManifest.parse (data, rootPath);
-		library = AssetLibrary.fromManifest (manifest);
-		Assets.registerLibrary ("default", library);
 		
 
-		library = Assets.getLibrary ("default");
-		if (library != null) preloadLibraries.push (library);
-		else preloadLibraryNames.push ("default");
 		
 
 		#end
@@ -94,12 +98,10 @@ null
 #if !display
 #if flash
 
-@:keep @:bind @:noCompletion #if display private #end class __ASSET__manifest_default_json extends flash.utils.ByteArray { }
 
 
 #elseif (desktop || cpp)
 
-@:keep @:file("") @:noCompletion #if display private #end class __ASSET__manifest_default_json extends haxe.io.Bytes {}
 
 
 
@@ -118,6 +120,8 @@ null
 #end
 
 #end
+#end
+
 #end
 
 #end
