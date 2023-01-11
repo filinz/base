@@ -96,7 +96,25 @@ class Main extends Sprite {
 		}		
 		
 		
-		.return.
+		// КЛАССЫ
+		/* 
+		все объявления по-умолчанию private
+		*/
+		
+		
+		var myObj = new MyClass();
+		
+		trace(myObj.sqr(3.1));
+		
+		trace(MyClass.ssqr(3.2));
+		
+		
+		// Анонимные объекты (анонимные структуры)
+		
+		var myAnonObj = { a : 1, b : 2.3, c : true, xx : { x * x; }};
+		trace(myAnonObj);
+		
+		
 		// Ввод-вывод данных - для neko
 		/*
 		Sys.println("Hello World и Мир!");		
@@ -113,4 +131,35 @@ class Main extends Sprite {
 		File.saveContent("Main.hx", s)
 		*/
 	}
+}
+
+
+class MyClass 
+{
+	public function new() {
+		trace(sqr(2)); // this для примера, можно опустить
+	}
+	
+	
+	public function sqr(x:Float):Float {
+		return x * x;
+	}
+	
+	
+	public static function ssqr(x:Float):Float {
+		return x * x;
+	}
+	
+	
+	// свойства
+	/*
+	первое - доступ по чтению, второе - доступ по записи
+	default - нормальный доступ, если при этом переменная public
+	null - разрешает доступ только из того класса, где определена переменная, =private
+	dynamic - доступ не контроллируется
+	never - доступ закрыт
+	get/set - должны быть созданы программистом соответствующие методы доступа (для переменной x метод должен именоваться get_x)
+	*/
+	var prop(default, never):Int;
+	
 }
