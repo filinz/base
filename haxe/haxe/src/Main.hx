@@ -35,49 +35,110 @@ class Main extends Sprite {
 		// Void - результат отсутствует
 		// Если тип не указан - он будет выведен при инициализации переменной
 		
+		trace("Простые типы данных:");
+		trace(myInt, "(Int)", Type.typeof(myInt));
+		trace(myFloat, "(Float)", Type.typeof(myFloat));
+		trace(myString, "(String)", Type.typeof(myString));
+		
+		$type(myInt); // вывод типа переменной при компиляции
 		
 		// Приведение типов
-		trace(Std.int(myFloat));
-		trace(Std.string(myFloat));
-
-		// Получение типа переменной
-		trace(Type.typeof(myFloat));
-		trace(Type.typeof(myString));
-		$type(myFloat); // вывод типа переменной при компилляции
-
+		trace("Int->Float:", Std.int(myFloat));
+		trace("Float->String:", Std.string(myFloat));
+	
+		
 		// СТРОКИ
 		// Интерполяция
-		var x:Int = 3;
-		trace('вывод $x и ${x+3}');
+		trace("Интерполяция строк (вывод 100 и 103):", 'вывод $myInt и ${myInt+3}');
 
-		var scc = String.fromCharCode(112); // получение символа по коду
+		var scc = String.fromCharCode(1092); // получение символа по коду
+		trace("Получение символа по коду (ф)", scc);
+
 
 		// MATH
-		Math.random(); // случайное число от 0 до 1, без аргументов
-		Std.random(100); // случайное число от 0 до аргумента (без попадания аргумента в диапазон вывода)
+		var myRandom1 = Math.random(); // случайное число от 0 до 1, без аргументов
+		var myRandom2 = Std.random(100); // случайное число от 0 до аргумента (без попадания аргумента в диапазон вывода)
+		
+		trace ("Случайное число 0-1 Math.random()", myRandom1);
+		trace ("Случайное целое число 0-99 Std.random(100)", myRandom2);
+		
+		
+		// ВЫРАЖЕНИЯ И ОПЕРАТОРЫ
+		/*
+		Операторы: (todo: из jS, перепроверить)
+			Оператор присваивания = работает справа налево
+			Мат.операторы + - * / % по мат.правилам
+			Унарные операторы +10 -10 ++i i--
+			Бинарные операторы + - * / % += -= *= /= %= (присваивания с операцией)
+			Операторы отношения < > <= >= == != (с приведением типов) === !==
+			
+		Приоритет операторов и их ассоциативность:
+			!, ++, --	(постфиксные унарные операторы) right
+			~, !, -, ++, --	(префиксные унарные операторы) right
+			%	(деление по модулю)	left
+			*, /	(умножение, деление)	left
+			+, -	(сложение, вычитание)	left
+			<<, >>, >>>	(побитовые сдвиги)	left
+			&, |, ^	(побитовые операторы) left
+			==, !=, <, <=, >, >=	(сравнение)	left
+			...	(интервал)	left
+			&&	(логическое и) left
+			||	(логическое или) left
+			@	(метаданные)	right
+			?:	(тернарный оператор)	right
+			%=, *=, /=, +=, -=, <<=, >>=, >>>=, &=, |=, ^=	(составное присваивание)	right
+			=>	(стрелка)	right
+		*/
+
+		// ВЕТВЛЕНИЯ
+		
+		trace("Ветвления:");
+		var myCondition1 = true, myCondition2 = true, myCondition3 = true;
+		if (myCondition1) {
+			trace("соблюдение условия 1");
+		} else if (myCondition2) {
+			trace("соблюдение условия 2");
+		} else if (myCondition3) {
+			trace("соблюдение условия 3");
+		} else {
+			trace("ни одно из условий не выполнено");
+		}
+		
+		// Условный оператор возвращает результат
+		var myIfResult = if (myCondition1) {
+			"соблюдение условия 1";
+		} else {
+			"соблюдение условия 2";
+		}
+		trace(myIfResult);
+		
+		trace(if (myCondition1) {"соблюдение условия 1"; } else {"соблюдение условия 2"; });
+		
+		// ЦИКЛЫ
 		
 		
 		// ФУНКЦИИ
 		
-		function myFunc(x:Float = 1, y:Float = 1, ?z:Float):Float {
-			return x * y;
+		function myFunc(x:Float = 1, y:Float = 1, ?z:Float = 1):Float {
+			return x * y * z;
 		}
 		
-		//trace(myFunc(10, 10.2));
-		//trace($type(myFunc));
-		//trace($type(myFunc(2, 2)));
 		$type(myFunc); // без аргументов - вывод сигнатуры функции, с аргументами - вывод типа возвращаемого результата
+		$type(myFunc(3, 3));
 		
+		trace("Функции");
+		trace("(27)", myFunc(3, 3, 3));
 		
 		// Анонимные функции
 		var myAnonimFunc = function(x, y) {
-			return x + y;
+			return x * y;
 		}
-		trace(myAnonimFunc(2, 3));
+		trace("(9)", myAnonimFunc(3, 3));
 		
 		
 		// ИСКЛЮЧЕНИЯ
 		
+		trace("Исключения");
 		function f(x:Float):Void {
 			if (x == 0) {
 				throw new String("Деление на ноль");
