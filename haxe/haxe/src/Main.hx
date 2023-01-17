@@ -93,7 +93,7 @@ class Main extends Sprite {
 		// ВЕТВЛЕНИЯ
 		
 		trace("Ветвления:");
-		var myCondition1 = true, myCondition2 = true, myCondition3 = true;
+		var myCondition1 = false, myCondition2 = false, myCondition3 = true;
 		if (myCondition1) {
 			trace("соблюдение условия 1");
 		} else if (myCondition2) {
@@ -105,18 +105,142 @@ class Main extends Sprite {
 		}
 		
 		// Условный оператор возвращает результат
+		// блоки после условного выражения и после else должны быть одного типа
+		// если ветви else нет - if возвращает результат типа Void
+		
 		var myIfResult = if (myCondition1) {
 			"соблюдение условия 1";
 		} else {
-			"соблюдение условия 2";
+			"соблюдение условия 2+";
 		}
 		trace(myIfResult);
 		
-		trace(if (myCondition1) {"соблюдение условия 1"; } else {"соблюдение условия 2"; });
+		trace(if (myCondition1) {"соблюдение условия 1"; } else {"соблюдение условия 2+"; });
+
+		
+		// Тернарный оператор
+		var myTernarResult, MyTernarCondition = false, myTernarResult1 = "соблюдение условия 1", myTernarResult2 = "соблюдение условия 2";
+		myTernarResult = MyTernarCondition ? myTernarResult1 : myTernarResult2;
+		
+		trace("Тернарный оператор:");
+		trace(myTernarResult);
+
+		
+		// switch - case
+		trace("switch-case:");
+		
+		var myChoice:Int = 4;
+		
+		switch (myChoice) {
+			case 1:	trace("выбран вариант 1");
+			case 2, 3: trace("выбран вариант 2, 3");
+			default:
+				trace("выбран вариант default");
+				
+		}
+		
+		// переключатель также возвращает результат
+		trace(
+			switch (myChoice) {
+				case 1:	"выбран вариант 1";
+				case 2, 3: "выбран вариант 2, 3";
+				case _: "выбран вариант default"; // аналог default
+				//case myChoice: "выбран вариант default"; // тоже аналог default
+			}
+		);
+		
 		
 		// ЦИКЛЫ
 		
+		trace("Циклы:");
 		
+		var myLoop = ['Элемент0', 'Элемент1', 'Элемент2', 'Элемент3'];
+		var outLoop1 = 'while: ';
+		
+		var i = 0;
+		while (i <= 3) { // цикл while
+			outLoop1 += '${myLoop[i]} ';
+			i++;
+		}
+		trace(outLoop1);
+		
+		
+		var outLoop2 = 'do-while: ';
+		i = 0;
+		do { // цикл do-while
+			outLoop2 += '${myLoop[i]} ';
+			i++;
+		} while (i <= 3);
+		trace(outLoop2);
+		
+		
+		var outLoop3 = 'for: ';
+		for (i in 0...4) {
+			// выражение (0...4) определяет коллекцию (ранг), элементы которой представлены числами 0,1,2,3 (правая граница в коллекцию не входит)
+			outLoop3 += '${myLoop[i]} ';
+		}
+		trace(outLoop3);
+		
+		var outLoop4 = 'for: ';
+		for (i in [0,1,2,3]) { 
+			outLoop4 += '${myLoop[i]} ';
+		}
+		trace(outLoop4);
+		
+		var outLoop5 = 'for: ';
+		for (i in myLoop) { 
+			outLoop5 += '$i ';
+		}
+		trace(outLoop5);
+		
+		var outLoop6 = 'for +continue +break (0,1,3): ';
+		for (i in [0,1,2,3,4,5,6]) {
+			if (i == 2) continue;
+			if (i == 4) break;
+			outLoop6 += '${myLoop[i]} ';
+		}
+		trace(outLoop6);
+				
+		var myRank = (0...4);
+		trace("ранг (0...4) в цикле for (перебор 0,1,2,3): ", myRank);
+		
+		
+		// КОЛЛЕКЦИИ
+		
+		// Массивы
+		// индекс всегда Int
+		// при добавлении элементов пропущенные элементы получают значение null
+		// при извлечении элемента с несуществующим индексом тоже null
+		// все элемементы (при объявленном и при необъявленном типе) должны быть одного типа, если тип не Dynamic
+		// Array - класс и создавать массивы можно с использованием конструктора класса
+		
+		trace("Массивы:");
+		
+		var myArray:Array<Int>;
+		myArray = [1, 2, 3, 4, 5];
+		trace("myArray:", myArray);
+		trace("myArray[2] (3):", myArray[2]);
+		
+		myArray[2] = 8;
+		trace("myArray[2] (8):", myArray[2]);
+		
+		myArray[7] = 8;
+		trace("myArray:", myArray);
+		
+		trace("myArray[10] (null):", myArray[10]);
+		
+		var myDynamicArray:Array<Dynamic> = [1, 2.2, 'строка', true];
+		trace("myDynamicArray:", myDynamicArray);
+		
+		var myDynamicArray2 = new Array<Dynamic>(); // создание пустого массива через класс
+		myDynamicArray2 = [myArray, myDynamicArray]; // двумерная матрица
+		trace("myDynamicArray2:", myDynamicArray2);
+		trace("myDynamicArray2[0][4] (5):", myDynamicArray2[0][4]);
+		
+		var myArray2:Array<Float> = [for (x in 0...5) x];
+		trace("myArray2 for (x in 0...5) ([0,1,2,3,4]):", myArray2);
+		
+	
 		// ФУНКЦИИ
 		
 		function myFunc(x:Float = 1, y:Float = 1, ?z:Float = 1):Float {
@@ -126,7 +250,7 @@ class Main extends Sprite {
 		$type(myFunc); // без аргументов - вывод сигнатуры функции, с аргументами - вывод типа возвращаемого результата
 		$type(myFunc(3, 3));
 		
-		trace("Функции");
+		trace("Функции:");
 		trace("(27)", myFunc(3, 3, 3));
 		
 		// Анонимные функции
@@ -138,7 +262,7 @@ class Main extends Sprite {
 		
 		// ИСКЛЮЧЕНИЯ
 		
-		trace("Исключения");
+		trace("Исключения:");
 		function f(x:Float):Void {
 			if (x == 0) {
 				throw new String("Деление на ноль");

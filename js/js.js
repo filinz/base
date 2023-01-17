@@ -318,6 +318,7 @@ if (myCondition1) {
   // ни одно условие не соблюдено
 }
 
+// TODO  вывод if и switch-case, несколько case
 let myChoice;
 switch (myChoice) {
   case 1:
