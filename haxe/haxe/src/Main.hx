@@ -1,5 +1,6 @@
 package;
 
+import haxe.ds.Vector;
 import openfl.display.Sprite;
 import openfl.Lib;
 
@@ -28,7 +29,7 @@ class Main extends Sprite {
 		// Простые типы
 		var myInt:Int = 100; // совместим с Float, но не наоборот
 		var myFloat:Float = 10.45;
-		var myString:String = "строка";
+		var myString:String = "моя строка";
 		var myBool:Bool = true;
 		// ereg
 		// Null
@@ -240,7 +241,73 @@ class Main extends Sprite {
 		var myArray2:Array<Float> = [for (x in 0...5) x];
 		trace("myArray2 for (x in 0...5) ([0,1,2,3,4]):", myArray2);
 		
-	
+		
+		// Методы массивов
+		
+		trace("Методы массивов:", myArray);
+		
+		trace(".length:", myArray.length);
+		
+		myArray.reverse(); 
+		trace(".reverse():", myArray);
+		
+		// concat, join, pop, push, shift, slice, sort, insert, remove, copy, map, filter
+		
+		
+		// разбить строку по разделителю (символ или группа символов) и преобразовать в массив
+		// сама строка не изменися
+		var mySplittedArray = myString.split("о"); 
+		trace(".split() к строке", myString, ": ", mySplittedArray);
+		
+		
+		// Списки
+		// элементы заключены в фигурные скобки
+		// нет возможности извлекать элементы по индексу
+		
+		trace("Списки:");
+		
+		var myList0:List<Dynamic>; // только объявление, не создает список, нельзя инициировать с помощью = другой коллекцией, кроме другого списка
+		
+		var myList = new List<Dynamic>(); // создает пустой список
+		
+		var myList2:List<Int> = Type.createEmptyInstance(List);
+		trace("создание пустого списка через Type.createEmptyInstance:", myList2);
+		
+		var myList3:List<String> = Lambda.list( ["элемент 1", "элемент 2", "элемент 3"] );
+		trace("создание списка через Lambda.list:", myList3);
+		
+		trace("Методы списков:", myList);
+		myList.add('элемент 1');
+		trace(".add():", myList);
+		myList.add('элемент 2');
+		trace(".add():", myList);
+		
+		trace("for (l in myList):");
+		for (l in myList) { trace(l); }
+		
+		// length, push, first, last, pop, isEmpty, clear, remove, toString, join, filter, map
+		
+		
+		// Векторы
+		// вектор - массив с фиксированной длиной, определяемой при создании вектора, котрая не может меняться
+		
+		trace("Векторы:");
+		
+		var myVector = new Vector(10);
+		for (i in 0...myVector.length) {
+			myVector[i] = i+10;
+		}
+		trace("myVector:", myVector);
+		trace("myVector[0]:", myVector[0]);
+		trace("myVector[2]:", myVector[2]);
+		
+		// Map
+		
+		
+		// Сортировка коллекций
+		
+		
+		
 		// ФУНКЦИИ
 		
 		function myFunc(x:Float = 1, y:Float = 1, ?z:Float = 1):Float {
