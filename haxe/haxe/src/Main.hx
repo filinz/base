@@ -219,7 +219,7 @@ class Main extends Sprite {
 		
 		var myArray:Array<Int>;
 		myArray = [1, 2, 3, 4, 5];
-		trace("myArray:", myArray);
+		trace("myArray, тип:", myArray, Type.typeof(myArray));
 		trace("myArray[2] (3):", myArray[2]);
 		
 		myArray[2] = 8;
@@ -302,10 +302,47 @@ class Main extends Sprite {
 		trace("myVector[2]:", myVector[2]);
 		
 		// Map
+		// ключи - любой тип, но одинаковый для всех элементов
+		// значения могут быть разные, если указать тип Any или Dynamic
+		trace("Map:");
+		
+		var myMap:Map<Int,String> = [1 => "элемент 1", 2 => "элемент 2", 3 => "элемент 3"];
+		trace("myMap и тип:", myMap, Type.typeof(myMap));
+		trace("myMap[2]:", myMap[2]);
+		
+		var myMap2 = ["индекс 1" => 1, "индекс 2" => 2, "индекс 3" => 3];
+		trace("myMap2 и тип:", myMap2, Type.typeof(myMap2));
+		trace('myMap2["индекс 2"]:', myMap2["индекс 2"]);
+		
+		var myMap3:Map<String,String> = ["индекс 1" => "элемент 1", "индекс 2" => "элемент 2", "индекс 3" => "элемент 3"];
+		trace("myMap3:", myMap3, Type.typeof(myMap));
+		
+		trace("for(x in myMap3):");
+		for (x in myMap3) { trace(x); }
+		
+		trace("for(x in myMap3.keys()):");
+		for (x in myMap3.keys()) { trace(x); }
+		
+		var myMap4:Map<String,Any> = ["индекс 1" => 1, "индекс 2" => true, "индекс 3" => 'элемент строка'];
+		trace("myMap4 и тип:", myMap4, Type.typeof(myMap4));
+		
+		
+		var objMap = { elem1 : "Элемент 1", elem2 : "Элемент 2", elem3 : 3};
+		trace(objMap, Type.typeof(objMap));
+		
+		var arrMapFields = Reflect.fields(objMap); // выбрать значения из отображения в формате массива
+		trace(arrMapFields, Type.typeof(arrMapFields));
+		
 		
 		
 		// Сортировка коллекций
 		
+		trace("Сортировка коллекций:");
+		
+		var myArray3:Array<Int> = [7, 5, 3, 1, 0, 2, 8, 4, 6];
+		trace("myArray3 несорт:", myArray3);
+		myArray3.sort( function(a, b) return a > b ? 1 : -1 );
+		trace("myArray3 сорт:", myArray3);
 		
 		
 		// ФУНКЦИИ
