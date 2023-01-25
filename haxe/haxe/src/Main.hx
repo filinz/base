@@ -334,7 +334,6 @@ class Main extends Sprite {
 		trace(arrMapFields, Type.typeof(arrMapFields));
 		
 		
-		
 		// Сортировка коллекций
 		
 		trace("Сортировка коллекций:");
@@ -357,13 +356,19 @@ class Main extends Sprite {
 		trace("Функции:");
 		trace("(27)", myFunc(3, 3, 3));
 		
+		
 		// Анонимные функции
+		trace("Анонимные функции:");
+		
 		var myAnonimFunc = function(x, y) {
 			return x * y;
 		}
 		trace("(9)", myAnonimFunc(3, 3));
 		
+		// функции могут быть аргументами других функций
+		// функции могут возвращать результат, представляющий другую функцию
 		
+	
 		// ИСКЛЮЧЕНИЯ
 		
 		trace("Исключения:");
@@ -384,62 +389,79 @@ class Main extends Sprite {
 			trace(e);
 		}		
 		
+	
+		// Анонимные объекты (анонимные структуры)
+		
+		trace("Анонимные объекты:");
+		var myAnonObj = { a : 1, b : 2.5, c : true, xx : { x * x; }};
+		trace(myAnonObj);			
+		
 		
 		// КЛАССЫ
 		/* 
 		все объявления по-умолчанию private
 		*/
 		
+		trace("Классы:");
 		
-		var myObj = new MyClass();
+		var myObj = new MyClass("myObj");
 		
-		trace(myObj.sqr(3.1));
+		trace(myObj.xx(3.1));
 		
-		trace(MyClass.ssqr(3.2));
-		
-		
-		// Анонимные объекты (анонимные структуры)
-		
-		var myAnonObj = { a : 1, b : 2.3, c : true, xx : { x * x; }};
-		trace(myAnonObj);
+		trace(MyClass.xx2(3.1));
 		
 		
-		// Ввод-вывод данных - для neko
-		/*
-		Sys.println("Hello World и Мир!");		
-		trace(Sys.args(), Sys.args()[0]);
-		*/
+		var myObj2 = new MyClass2();
+	
+		trace(myObj2.xx(3.1));
+		
+		trace(myObj2.xx3(3.1));
+		
+		// Объекты в Haxe могут иметь одновременно сразу несколько типов
+		
+		// Интерфейсы
+		
+		trace("Интерфейсы:");
 		
 		
-		// Файлы - для neko
-		/*
-		import sys.io.File;
-		var s = File.getContent("Main.hx");
-		trace(s);
-		s = "Запись строки в файл";
-		File.saveContent("Main.hx", s)
-		*/
+		var myObj3 = new MyClass3(); 
+			
+		myObj3.out("метод out");
+		trace("свойство a=0.111", myObj3.a);
+		
+		
+		// Динамические методы
+		trace("Динамические методы:");
+		
+		var myObj4 = new MyClass4();
+		myObj4.myDynamicFunc();
+		
+		myObj4.myDynamicFunc = function() { trace("Динамическая функция после изменения"); };
+		myObj4.myDynamicFunc();
 	}
 }
 
 
 class MyClass 
 {
-	public function new() {
-		trace(sqr(2)); // this для примера, можно опустить
+	var s:String;
+	
+	public function new(s:String) {
+		trace("Вызов конструктора класса: ", s); // this для примера, можно опустить
 	}
 	
 	
-	public function sqr(x:Float):Float {
+	public function xx(x:Float):Float {
 		return x * x;
 	}
 	
 	
-	public static function ssqr(x:Float):Float {
+	public static function xx2(x:Float):Float {
 		return x * x;
 	}
 	
 	
+	var prop(default, never):Int;
 	// свойства
 	/*
 	первое - доступ по чтению, второе - доступ по записи
@@ -449,6 +471,49 @@ class MyClass
 	never - доступ закрыт
 	get/set - должны быть созданы программистом соответствующие методы доступа (для переменной x метод должен именоваться get_x)
 	*/
-	var prop(default, never):Int;
-	
+
 }
+
+class MyClass2 extends MyClass
+{
+	public function new() {
+		super("MyClass2"); // директива, вызывающая конструктор new родительского класса
+	}
+	
+	public function xx3(x:Float):Float {
+		return x * x;
+	}
+}
+
+
+// поля и методы в интерфейсах по умолчанию public
+// интерфейсы не могут создавать экземпляры
+// интерфейсы могут имплементировать другие интерфейсы
+
+interface MyInterface 
+{
+	public function out(s:String) : Void;
+	public var a:Float;
+}
+
+class MyClass3 implements MyInterface 
+{
+	public function new() {}
+	public function out(s) { trace(s); }
+	public var a = 0.111;
+}
+
+class MyClass4 {
+	// модификатор dynamic позволят менять функцию 
+	// при этом нельзя менять сигнатуру функции
+	// модификация происходит на уровне экземпляра, а не на уровне класса
+	// статические функции тоже можно модифицировать
+
+	public function new() {}
+		
+	public dynamic function myDynamicFunc():Void { trace("Динамическая функция до изменения");	}
+		
+		
+
+}
+
