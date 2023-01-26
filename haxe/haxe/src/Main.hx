@@ -27,10 +27,12 @@ class Main extends Sprite {
 
 		// ТИПЫ ДАННЫХ, ЗНАЧЕНИЯ И ПЕРЕМЕННЫЕ
 		// Простые типы
+		// В Haxe всё является классами, кроме Int, Float и Bool
+		
 		var myInt:Int = 100; // совместим с Float, но не наоборот
 		var myFloat:Float = 10.45;
-		var myString:String = "моя строка";
 		var myBool:Bool = true;
+		var myString:String = "моя строка";
 		// ereg
 		// Null
 		// Void - результат отсутствует
@@ -46,22 +48,66 @@ class Main extends Sprite {
 		// Приведение типов
 		trace("Int->Float:", Std.int(myFloat));
 		trace("Float->String:", Std.string(myFloat));
+		
+		trace("Float->String:", myFloat.toString()); // переменная тип не меняет
 	
 		
 		// СТРОКИ
+		trace("Строки:");
+		
 		// Интерполяция
-		trace("Интерполяция строк (вывод 100 и 103):", 'вывод $myInt и ${myInt+3}');
+		trace("интерполяция строк (вывод 100 и 103):", 'вывод $myInt и ${myInt+3}');
 
-		var scc = String.fromCharCode(1092); // получение символа по коду
-		trace("Получение символа по коду (ф)", scc);
-
-
+		
+		// String - класс
+		var myString2 = new String("Вторая строка");
+		trace("myString2:", myString2);
+		
+		trace("длина строки:", myString2.length);
+		
+		trace("отдельный знак по индексу [0], [1], [100]:", myString2.charAt(0), myString2.charAt(1), myString2.charAt(100));
+		trace("цифровой код для символа [0], [1], [100]:", myString2.charCodeAt(0), myString2.charCodeAt(1), myString2.charCodeAt(100));
+		trace("цифровой код для символа W, я, <,>:", "W".code, "я".code, ",".code);
+		trace("получение символа по коду (ф)", String.fromCharCode(1092));
+		
+		trace("узнать индекс указанного символа 'о':", myString2.indexOf("о"));
+		trace("индекс указанного символа с указанием места начала поиска:", myString2.indexOf("о", 3));
+		
+		trace("преобразовать строку в массив:", myString2.split("о"));
+		
+		trace("извлечь подстроку [начало подстроки, длина подстроки]:", myString2.substr(3,6));
+		trace("извлечь подстроку только с указанием начала:", myString2.substr(3));
+		trace("извлечь подстроку [начало подстроки, до какого индекса(без него)]:", myString2.substring(3, 9));
+		
+		trace("в нижний регистр:", myString2.toLowerCase());
+		trace("в верхний регистр:", myString2.toUpperCase());
+		
+		// переменные типа String неизменяемы (immutable), их нельзя модифицировать "на месте"
+		// переменные типа StringBuf изменяемы
+		
+		var myStringBuf = new StringBuf();
+		trace("myStringBuf:", myStringBuf);
+		
+		myStringBuf.add("Добавляем текст");
+		trace("myStringBuf:", myStringBuf);
+		
+		trace("длина myStringBuf:", myStringBuf.length);
+		
+		myStringBuf.addChar(44);
+		trace("добавляем символ по коду (,):", myStringBuf);
+		
+		myStringBuf.addSub("ххх и другой текст ххх", 3, 16); // начало и длина подстроки
+		trace("добавляем подстроку из заданной строки:", myStringBuf);
+		
+		
 		// MATH
+		trace("Math:");
+		
 		var myRandom1 = Math.random(); // случайное число от 0 до 1, без аргументов
 		var myRandom2 = Std.random(100); // случайное число от 0 до аргумента (без попадания аргумента в диапазон вывода)
 		
-		trace ("Случайное число 0-1 Math.random()", myRandom1);
-		trace ("Случайное целое число 0-99 Std.random(100)", myRandom2);
+		trace ("случайное число 0-1 Math.random()", myRandom1);
+		trace ("случайное целое число 0-99 Std.random(100)", myRandom2);
 		
 		
 		// ВЫРАЖЕНИЯ И ОПЕРАТОРЫ
