@@ -2,7 +2,6 @@ package;
 
 import haxe.ds.Vector;
 import openfl.display.Sprite;
-import openfl.Lib;
 
 /**
  * ...
@@ -38,22 +37,22 @@ class Main extends Sprite {
 		// Void - результат отсутствует
 		// Если тип не указан - он будет выведен при инициализации переменной
 		
-		trace("Простые типы данных:");
+		trace("--- Простые типы данных:");
 		trace(myInt, "(Int)", Type.typeof(myInt));
 		trace(myFloat, "(Float)", Type.typeof(myFloat));
 		trace(myString, "(String)", Type.typeof(myString));
 		
-		$type(myInt); // вывод типа переменной при компиляции
+		$type(myInt); // вывод типа переменной при компиляции в консоль
 		
 		// Приведение типов
+		trace("--- Приведение типов:");
 		trace("Int->Float:", Std.int(myFloat));
 		trace("Float->String:", Std.string(myFloat));
-		
-		trace("Float->String:", myFloat.toString()); // переменная тип не меняет
 	
 		
 		// СТРОКИ
-		trace("Строки:");
+		
+		trace("--- Строки:");
 		
 		// Интерполяция
 		trace("интерполяция строк (вывод 100 и 103):", 'вывод $myInt и ${myInt+3}');
@@ -99,15 +98,67 @@ class Main extends Sprite {
 		myStringBuf.addSub("ххх и другой текст ххх", 3, 16); // начало и длина подстроки
 		trace("добавляем подстроку из заданной строки:", myStringBuf);
 		
-		
+				
 		// MATH
-		trace("Math:");
+		trace("--- Math:");
 		
 		var myRandom1 = Math.random(); // случайное число от 0 до 1, без аргументов
 		var myRandom2 = Std.random(100); // случайное число от 0 до аргумента (без попадания аргумента в диапазон вывода)
 		
 		trace ("случайное число 0-1 Math.random()", myRandom1);
 		trace ("случайное целое число 0-99 Std.random(100)", myRandom2);
+		
+		
+		// РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ
+		// являются объектом и имеют тип EReg
+		// создаются с помощью знака ~ перед выражением, ограниченным прямыми слешами
+		
+		trace("--- Регулярные выражения:");
+		
+		var myReg:EReg = ~/слово/;
+		trace("myReg и тип:", myReg, Type.typeof(myReg));
+		
+		var myReg2:EReg = new EReg("слово", "i"); // второй необязательный аргумент задает флаг
+		trace("myReg и тип:", myReg2, Type.typeof(myReg2));
+		
+		var myStringForReg = "Например первое слово, второе слово, третье слово, четвертое слово, пятое слово";
+		trace(myReg.match(myStringForReg)); // определяет, встречается ли заданная комбинация знаков в заданном тексте
+		
+		/*
+			Вспомогательные знаки:
+			. - любой знак
+			* - повторение знака ноль или более раз
+			+ - повторение знака один или более раз
+			[A-Z0-9] - любой символ (буква или цифра), иногда называют рангом
+			[a-z] - символы могут быть и в нижнем регистре
+			[^\r\n\t] - управляющие символы
+			(abc) - группа символов, иногда скобки не обязательны
+			^ - начало строки
+			$ - конец строки
+			| - знак альтернативы (OR)
+		*/
+		
+		// после закрывающего прямого слеша может быть флаг, один или несколько через запятую:
+		var myReg2:EReg = ~/foo/i;
+		/*
+			Флаги:
+			i - регистр знаков в тексте не будет учитываться
+			m - позволяет анализировать многостраничный текст, 
+					его начало должно быть обозначено ^, а конец $
+			s - точки в тексте надо считать началом новых строк
+			u - используется кодировка UTF-8
+		*/
+		
+		var myReg3:EReg = ~/(первое).+?(второе).+?(третье).+?/;
+		if (myReg3.match(myStringForReg)) {
+			trace(myReg3.matched(1));
+			trace(myReg3.matched(2));
+			trace(myReg3.matched(3));
+			trace(myReg3.matchedLeft());
+			trace(myReg3.matchedRight());
+		}
+		
+		
 		
 		
 		// ВЫРАЖЕНИЯ И ОПЕРАТОРЫ
@@ -139,7 +190,7 @@ class Main extends Sprite {
 
 		// ВЕТВЛЕНИЯ
 		
-		trace("Ветвления:");
+		trace("--- Ветвления:");
 		var myCondition1 = false, myCondition2 = false, myCondition3 = true;
 		if (myCondition1) {
 			trace("соблюдение условия 1");
@@ -169,7 +220,7 @@ class Main extends Sprite {
 		var myTernarResult, MyTernarCondition = false, myTernarResult1 = "соблюдение условия 1", myTernarResult2 = "соблюдение условия 2";
 		myTernarResult = MyTernarCondition ? myTernarResult1 : myTernarResult2;
 		
-		trace("Тернарный оператор:");
+		trace("тернарный оператор:");
 		trace(myTernarResult);
 
 		
@@ -199,7 +250,7 @@ class Main extends Sprite {
 		
 		// ЦИКЛЫ
 		
-		trace("Циклы:");
+		trace("--- Циклы:");
 		
 		var myLoop = ['Элемент0', 'Элемент1', 'Элемент2', 'Элемент3'];
 		var outLoop1 = 'while: ';
@@ -261,7 +312,7 @@ class Main extends Sprite {
 		// все элемементы (при объявленном и при необъявленном типе) должны быть одного типа, если тип не Dynamic
 		// Array - класс и создавать массивы можно с использованием конструктора класса
 		
-		trace("Массивы:");
+		trace("--- Массивы:");
 		
 		var myArray:Array<Int>;
 		myArray = [1, 2, 3, 4, 5];
@@ -310,7 +361,7 @@ class Main extends Sprite {
 		// элементы заключены в фигурные скобки
 		// нет возможности извлекать элементы по индексу
 		
-		trace("Списки:");
+		trace("--- Списки:");
 		
 		var myList0:List<Dynamic>; // только объявление, не создает список, нельзя инициировать с помощью = другой коллекцией, кроме другого списка
 		
@@ -337,7 +388,7 @@ class Main extends Sprite {
 		// Векторы
 		// вектор - массив с фиксированной длиной, определяемой при создании вектора, котрая не может меняться
 		
-		trace("Векторы:");
+		trace("--- Векторы:");
 		
 		var myVector = new Vector(10);
 		for (i in 0...myVector.length) {
@@ -350,7 +401,7 @@ class Main extends Sprite {
 		// Map
 		// ключи - любой тип, но одинаковый для всех элементов
 		// значения могут быть разные, если указать тип Any или Dynamic
-		trace("Map:");
+		trace("--- Map:");
 		
 		var myMap:Map<Int,String> = [1 => "элемент 1", 2 => "элемент 2", 3 => "элемент 3"];
 		trace("myMap и тип:", myMap, Type.typeof(myMap));
@@ -382,7 +433,7 @@ class Main extends Sprite {
 		
 		// Сортировка коллекций
 		
-		trace("Сортировка коллекций:");
+		trace("--- Сортировка коллекций:");
 		
 		var myArray3:Array<Int> = [7, 5, 3, 1, 0, 2, 8, 4, 6];
 		trace("myArray3 несорт:", myArray3);
@@ -396,10 +447,10 @@ class Main extends Sprite {
 			return x * y * z;
 		}
 		
-		$type(myFunc); // без аргументов - вывод сигнатуры функции, с аргументами - вывод типа возвращаемого результата
-		$type(myFunc(3, 3));
+		$type(myFunc); // без аргументов - вывод сигнатуры функции в консоль
+		$type(myFunc(3, 3)); // с аргументами - вывод типа возвращаемого результата в консоль
 		
-		trace("Функции:");
+		trace("--- Функции:");
 		trace("(27)", myFunc(3, 3, 3));
 		
 		
@@ -417,7 +468,8 @@ class Main extends Sprite {
 	
 		// ИСКЛЮЧЕНИЯ
 		
-		trace("Исключения:");
+		trace("--- Исключения:");
+		
 		function f(x:Float):Void {
 			if (x == 0) {
 				throw new String("Деление на ноль");
@@ -438,7 +490,7 @@ class Main extends Sprite {
 	
 		// Анонимные объекты (анонимные структуры)
 		
-		trace("Анонимные объекты:");
+		trace("--- Анонимные объекты:");
 		var myAnonObj = { a : 1, b : 2.5, c : true, xx : { x * x; }};
 		trace(myAnonObj);			
 		
@@ -448,7 +500,7 @@ class Main extends Sprite {
 		все объявления по-умолчанию private
 		*/
 		
-		trace("Классы:");
+		trace("--- Классы:");
 		
 		var myObj = new MyClass("myObj");
 		
@@ -467,8 +519,7 @@ class Main extends Sprite {
 		
 		// Интерфейсы
 		
-		trace("Интерфейсы:");
-		
+		trace("--- Интерфейсы:");
 		
 		var myObj3 = new MyClass3(); 
 			
@@ -477,7 +528,7 @@ class Main extends Sprite {
 		
 		
 		// Динамические методы
-		trace("Динамические методы:");
+		trace("--- Динамические методы:");
 		
 		var myObj4 = new MyClass4();
 		myObj4.myDynamicFunc();
