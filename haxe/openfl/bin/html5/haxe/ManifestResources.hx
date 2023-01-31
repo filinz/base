@@ -77,8 +77,15 @@ import sys.FileSystem;
 
 		#else
 
+		data = '{"name":null,"assets":"aoy4:pathy14:img%2Fgrid.pngy4:sizei7509y4:typey5:IMAGEy2:idR1y7:preloadtgh","rootPath":null,"version":2,"libraryArgs":[],"libraryType":null}';
+		manifest = AssetManifest.parse (data, rootPath);
+		library = AssetLibrary.fromManifest (manifest);
+		Assets.registerLibrary ("default", library);
 		
 
+		library = Assets.getLibrary ("default");
+		if (library != null) preloadLibraries.push (library);
+		else preloadLibraryNames.push ("default");
 		
 
 		#end
@@ -98,10 +105,14 @@ null
 #if !display
 #if flash
 
+@:keep @:bind @:noCompletion #if display private #end class __ASSET__img_grid_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind @:noCompletion #if display private #end class __ASSET__manifest_default_json extends null { }
 
 
 #elseif (desktop || cpp)
 
+@:keep @:image("assets/img/grid.png") @:noCompletion #if display private #end class __ASSET__img_grid_png extends lime.graphics.Image {}
+@:keep @:file("") @:noCompletion #if display private #end class __ASSET__manifest_default_json extends haxe.io.Bytes {}
 
 
 

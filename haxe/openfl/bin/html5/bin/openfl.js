@@ -889,7 +889,8 @@ ApplicationMain.main = function() {
 };
 ApplicationMain.create = function(config) {
 	var app = new openfl_display_Application();
-	app.meta.h["build"] = "36";
+	ManifestResources.init(config);
+	app.meta.h["build"] = "37";
 	app.meta.h["company"] = "filinz";
 	app.meta.h["file"] = "openfl";
 	app.meta.h["name"] = "openfl";
@@ -925,6 +926,20 @@ ApplicationMain.create = function(config) {
 		ApplicationMain.start(stage);
 	};
 	preloader.onComplete.add(tmp);
+	var _g = 0;
+	var _g1 = ManifestResources.preloadLibraries;
+	while(_g < _g1.length) {
+		var library = _g1[_g];
+		++_g;
+		app.__preloader.addLibrary(library);
+	}
+	var _g = 0;
+	var _g1 = ManifestResources.preloadLibraryNames;
+	while(_g < _g1.length) {
+		var name = _g1[_g];
+		++_g;
+		app.__preloader.addLibraryName(name);
+	}
 	app.__preloader.load();
 	var result = app.exec();
 };
@@ -1358,7 +1373,6 @@ lime_utils_ObjectPool.prototype = {
 		if(!this.__pool.exists(object)) {
 			this.__pool.set(object,false);
 			this.clean(object);
-			this.__pool.set(object,false);
 			if(this.__inactiveObject0 == null) {
 				this.__inactiveObject0 = object;
 			} else if(this.__inactiveObject1 == null) {
@@ -1401,7 +1415,6 @@ lime_utils_ObjectPool.prototype = {
 					this.__inactiveObject1 = this.__inactiveObjectList.pop();
 				}
 			}
-			this.__pool.set(object1,true);
 			this.inactiveObjects--;
 			this.activeObjects++;
 			object = object1;
@@ -1415,15 +1428,9 @@ lime_utils_ObjectPool.prototype = {
 		return object;
 	}
 	,release: function(object) {
-		if(!this.__pool.exists(object)) {
-			lime_utils_Log.error("Object is not a member of the pool",{ fileName : "lime/utils/ObjectPool.hx", lineNumber : 102, className : "lime.utils.ObjectPool", methodName : "release"});
-		} else if(!this.__pool.get(object)) {
-			lime_utils_Log.error("Object has already been released",{ fileName : "lime/utils/ObjectPool.hx", lineNumber : 106, className : "lime.utils.ObjectPool", methodName : "release"});
-		}
 		this.activeObjects--;
 		if(this.__size == null || this.activeObjects + this.inactiveObjects < this.__size) {
 			this.clean(object);
-			this.__pool.set(object,false);
 			if(this.__inactiveObject0 == null) {
 				this.__inactiveObject0 = object;
 			} else if(this.__inactiveObject1 == null) {
@@ -1453,7 +1460,6 @@ lime_utils_ObjectPool.prototype = {
 		}
 	}
 	,__addInactive: function(object) {
-		this.__pool.set(object,false);
 		if(this.__inactiveObject0 == null) {
 			this.__inactiveObject0 = object;
 		} else if(this.__inactiveObject1 == null) {
@@ -1480,7 +1486,6 @@ lime_utils_ObjectPool.prototype = {
 				this.__inactiveObject1 = this.__inactiveObjectList.pop();
 			}
 		}
-		this.__pool.set(object,true);
 		this.inactiveObjects--;
 		this.activeObjects++;
 		return object;
@@ -3318,15 +3323,38 @@ openfl_display_Sprite.prototype = $extend(openfl_display_DisplayObjectContainer.
 	,__properties__: $extend(openfl_display_DisplayObjectContainer.prototype.__properties__,{get_graphics:"get_graphics",set_buttonMode:"set_buttonMode",get_buttonMode:"get_buttonMode"})
 });
 var Main = function() {
+	this.stepGridY = 100;
+	this.stepGridX = 100;
+	this.maxY = 900;
+	this.maxX = 1600;
 	openfl_display_Sprite.call(this);
-	this.get_graphics().lineStyle(3,0);
-	this.get_graphics().beginFill(16711680,1);
-	this.get_graphics().drawRect(0,0,203,25);
+	this.get_graphics().lineStyle(1,3355443);
+	var _g = 0;
+	var _g1 = this.maxX / this.stepGridX + 1 | 0;
+	while(_g < _g1) {
+		var x = _g++;
+		this.get_graphics().moveTo(x * this.stepGridX,0);
+		this.get_graphics().lineTo(x * this.stepGridX,this.maxY);
+	}
+	var _g = 0;
+	var _g1 = this.maxY / this.stepGridY + 1 | 0;
+	while(_g < _g1) {
+		var y = _g++;
+		this.get_graphics().moveTo(0,y * this.stepGridY);
+		this.get_graphics().lineTo(this.maxX,y * this.stepGridY);
+	}
 	this.get_graphics().lineStyle(0,0,0);
-	this.get_graphics().endFill();
-	var grid = new Grid();
-	this.addChild(grid);
-	haxe_Log.trace("done",{ fileName : "src/Main.hx", lineNumber : 26, className : "Main", methodName : "new"});
+	this.get_graphics().lineStyle(1,16777215);
+	this.get_graphics().moveTo(0,0);
+	this.get_graphics().lineTo(100,0);
+	this.get_graphics().lineTo(100,100);
+	this.get_graphics().lineTo(0,0);
+	this.get_graphics().lineTo(100,25);
+	this.get_graphics().moveTo(0,0);
+	this.get_graphics().lineTo(100,50);
+	this.get_graphics().moveTo(0,0);
+	this.get_graphics().lineTo(100,75);
+	haxe_Log.trace("done",{ fileName : "src/Main.hx", lineNumber : 63, className : "Main", methodName : "new"});
 };
 $hxClasses["Main"] = Main;
 Main.__name__ = "Main";
@@ -3501,37 +3529,31 @@ Lambda.array = function(it) {
 	}
 	return a;
 };
-var Grid = function() {
-	this.stepGridY = 100;
-	this.stepGridX = 100;
-	this.maxY = 900;
-	this.maxX = 1600;
-	openfl_display_Sprite.call(this);
-	this.get_graphics().lineStyle(1,3355443);
-	var _g = 0;
-	var _g1 = this.maxX / this.stepGridX + 1 | 0;
-	while(_g < _g1) {
-		var x = _g++;
-		this.get_graphics().moveTo(x * this.stepGridX,0);
-		this.get_graphics().lineTo(x * this.stepGridX,this.maxY);
+var ManifestResources = function() { };
+$hxClasses["ManifestResources"] = ManifestResources;
+ManifestResources.__name__ = "ManifestResources";
+ManifestResources.init = function(config) {
+	ManifestResources.preloadLibraries = [];
+	ManifestResources.preloadLibraryNames = [];
+	ManifestResources.rootPath = null;
+	if(config != null && Object.prototype.hasOwnProperty.call(config,"rootPath")) {
+		ManifestResources.rootPath = Reflect.field(config,"rootPath");
 	}
-	var _g = 0;
-	var _g1 = this.maxY / this.stepGridY + 1 | 0;
-	while(_g < _g1) {
-		var y = _g++;
-		this.get_graphics().moveTo(0,y * this.stepGridY);
-		this.get_graphics().lineTo(this.maxX,y * this.stepGridY);
+	if(ManifestResources.rootPath == null) {
+		ManifestResources.rootPath = "./";
 	}
-	this.get_graphics().lineStyle(0,0,0);
+	var bundle;
+	var data = "{\"name\":null,\"assets\":\"aoy4:pathy14:img%2Fgrid.pngy4:sizei7509y4:typey5:IMAGEy2:idR1y7:preloadtgh\",\"rootPath\":null,\"version\":2,\"libraryArgs\":[],\"libraryType\":null}";
+	var manifest = lime_utils_AssetManifest.parse(data,ManifestResources.rootPath);
+	var library = lime_utils_AssetLibrary.fromManifest(manifest);
+	lime_utils_Assets.registerLibrary("default",library);
+	library = lime_utils_Assets.getLibrary("default");
+	if(library != null) {
+		ManifestResources.preloadLibraries.push(library);
+	} else {
+		ManifestResources.preloadLibraryNames.push("default");
+	}
 };
-$hxClasses["Grid"] = Grid;
-Grid.__name__ = "Grid";
-Grid.__super__ = openfl_display_Sprite;
-Grid.prototype = $extend(openfl_display_Sprite.prototype,{
-	destroy: function() {
-	}
-	,__class__: Grid
-});
 Math.__name__ = "Math";
 var Reflect = function() { };
 $hxClasses["Reflect"] = Reflect;
@@ -22894,7 +22916,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 964360;
+	this.version = 978440;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = "lime.utils.AssetCache";
@@ -24971,8 +24993,58 @@ lime_utils_Preloader.prototype = {
 	,update: function(loaded,total) {
 	}
 	,updateProgress: function() {
+		var _gthis = this;
 		if(!this.simulateProgress) {
 			this.onProgress.dispatch(this.bytesLoaded,this.bytesTotal);
+		}
+		if(this.loadedLibraries == this.libraries.length && !this.initLibraryNames) {
+			this.initLibraryNames = true;
+			var _g = 0;
+			var _g1 = this.libraryNames;
+			while(_g < _g1.length) {
+				var name = [_g1[_g]];
+				++_g;
+				lime_utils_Log.verbose("Preloading asset library: " + name[0],{ fileName : "lime/utils/Preloader.hx", lineNumber : 239, className : "lime.utils.Preloader", methodName : "updateProgress"});
+				lime_utils_Assets.loadLibrary(name[0]).onProgress((function(name) {
+					return function(loaded,total) {
+						if(total > 0) {
+							if(!Object.prototype.hasOwnProperty.call(_gthis.bytesTotalCache.h,name[0])) {
+								_gthis.bytesTotalCache.h[name[0]] = total;
+								_gthis.bytesTotal += total - 200;
+							}
+							if(loaded > total) {
+								loaded = total;
+							}
+							if(!Object.prototype.hasOwnProperty.call(_gthis.bytesLoadedCache2.h,name[0])) {
+								_gthis.bytesLoaded += loaded;
+							} else {
+								_gthis.bytesLoaded += loaded - _gthis.bytesLoadedCache2.h[name[0]];
+							}
+							_gthis.bytesLoadedCache2.h[name[0]] = loaded;
+							if(!_gthis.simulateProgress) {
+								_gthis.onProgress.dispatch(_gthis.bytesLoaded,_gthis.bytesTotal);
+							}
+						}
+					};
+				})(name)).onComplete((function(name) {
+					return function(library) {
+						var total = 200;
+						if(Object.prototype.hasOwnProperty.call(_gthis.bytesTotalCache.h,name[0])) {
+							total = _gthis.bytesTotalCache.h[name[0]];
+						}
+						if(!Object.prototype.hasOwnProperty.call(_gthis.bytesLoadedCache2.h,name[0])) {
+							_gthis.bytesLoaded += total;
+						} else {
+							_gthis.bytesLoaded += total - _gthis.bytesLoadedCache2.h[name[0]];
+						}
+						_gthis.loadedAssetLibrary(name[0]);
+					};
+				})(name)).onError((function() {
+					return function(e) {
+						lime_utils_Log.error(e,{ fileName : "lime/utils/Preloader.hx", lineNumber : 293, className : "lime.utils.Preloader", methodName : "updateProgress"});
+					};
+				})());
+			}
 		}
 		if(!this.simulateProgress && this.loadedLibraries == this.libraries.length + this.libraryNames.length) {
 			if(!this.preloadComplete) {
@@ -63462,6 +63534,9 @@ openfl_events_UncaughtErrorEvents.prototype = $extend(openfl_events_EventDispatc
 			useCapture = false;
 		}
 		openfl_events_EventDispatcher.prototype.addEventListener.call(this,type,listener,useCapture,priority,useWeakReference);
+		if(Object.prototype.hasOwnProperty.call(this.__eventMap.h,"uncaughtError")) {
+			this.__enabled = true;
+		}
 	}
 	,removeEventListener: function(type,listener,useCapture) {
 		if(useCapture == null) {
@@ -73817,7 +73892,7 @@ while(_g < _g1) {
 }
 lime_system_CFFI.available = false;
 lime_system_CFFI.enabled = false;
-lime_utils_Log.level = 4;
+lime_utils_Log.level = 3;
 if(typeof console == "undefined") {
 	console = {}
 }
@@ -76090,7 +76165,6 @@ openfl_utils__$internal_TouchData.__pool = new lime_utils_ObjectPool(function() 
 ApplicationMain.main();
 })(typeof exports != "undefined" ? exports : typeof window != "undefined" ? window : typeof self != "undefined" ? self : this, typeof window != "undefined" ? window : typeof global != "undefined" ? global : typeof self != "undefined" ? self : this);
 
-//# sourceMappingURL=openfl.js.map
 });
 $hx_exports.lime = $hx_exports.lime || {};
 $hx_exports.lime.$scripts = $hx_exports.lime.$scripts || {};
