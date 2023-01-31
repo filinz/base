@@ -16,11 +16,11 @@ class ApplicationMain
 	#if !macro
 	public static function main()
 	{
-		lime.system.System.__registerEntryPoint("haxe", create);
+		lime.system.System.__registerEntryPoint("openfl", create);
 
 		#if (js && html5)
 		#if (munit || utest)
-		lime.system.System.embed("haxe", null, 800, 480);
+		lime.system.System.embed("openfl", null, 1600, 900);
 		#end
 		#else
 		create(null);
@@ -37,9 +37,9 @@ class ApplicationMain
 
 		app.meta["build"] = "36";
 		app.meta["company"] = "filinz";
-		app.meta["file"] = "haxe";
-		app.meta["name"] = "haxe";
-		app.meta["packageName"] = "haxe";
+		app.meta["file"] = "openfl";
+		app.meta["name"] = "openfl";
+		app.meta["packageName"] = "openfl";
 		app.meta["version"] = "1.0.0";
 
 		
@@ -54,14 +54,14 @@ class ApplicationMain
 			element: null,
 			frameRate: 60,
 			#if !web fullscreen: false, #end
-			height: 480,
+			height: 900,
 			hidden: #if munit true #else false #end,
 			maximized: false,
 			minimized: false,
 			parameters: {},
 			resizable: true,
-			title: "haxe",
-			width: 800,
+			title: "openfl",
+			width: 1600,
 			x: null,
 			y: null,
 		};
