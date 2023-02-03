@@ -4,9 +4,10 @@ import haxe.ds.Vector;
 import openfl.display.Sprite;
 
 /**
- * ...
+ * Базовый синтаксис Haxe
  * @author filinz
  */
+
 class Main extends Sprite {
 
 	public function new() {
@@ -46,9 +47,9 @@ class Main extends Sprite {
 		
 		// Приведение типов
 		trace("--- Приведение типов:");
-		trace("Int->Float:", Std.int(myFloat));
+		trace("Float->Int:", Std.int(myFloat));
 		trace("Float->String:", Std.string(myFloat));
-	
+
 		
 		// СТРОКИ
 		
@@ -386,7 +387,7 @@ class Main extends Sprite {
 		
 		
 		// Векторы
-		// вектор - массив с фиксированной длиной, определяемой при создании вектора, котрая не может меняться
+		// вектор - массив с фиксированной длиной, определяемой при создании вектора, которая не может меняться
 		
 		trace("--- Векторы:");
 		
@@ -397,6 +398,7 @@ class Main extends Sprite {
 		trace("myVector:", myVector);
 		trace("myVector[0]:", myVector[0]);
 		trace("myVector[2]:", myVector[2]);
+		
 		
 		// Map
 		// ключи - любой тип, но одинаковый для всех элементов
