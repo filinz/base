@@ -77,7 +77,7 @@ import sys.FileSystem;
 
 		#else
 
-		data = '{"name":null,"assets":"aoy4:sizei7509y4:typey5:IMAGEy9:classNamey21:__ASSET__img_grid_pngy2:idy14:img%2Fgrid.pnggh","rootPath":null,"version":2,"libraryArgs":[],"libraryType":null}';
+		data = '{"name":null,"assets":"aoy4:sizei4855y4:typey5:IMAGEy9:classNamey22:__ASSET__img_brick_pngy2:idy15:img%2Fbrick.pnggoR0i7509R1R2R3y21:__ASSET__img_grid_pngR5y14:img%2Fgrid.pnggoR0i13934R1R2R3y25:__ASSET__img_haxelogo_pngR5y18:img%2Fhaxelogo.pnggoR0i501204R1R2R3y22:__ASSET__img_logo1_pngR5y15:img%2Flogo1.pnggoR0i343928R1R2R3y22:__ASSET__img_logo2_pngR5y15:img%2Flogo2.pnggh","rootPath":null,"version":2,"libraryArgs":[],"libraryType":null}';
 		manifest = AssetManifest.parse (data, rootPath);
 		library = AssetLibrary.fromManifest (manifest);
 		Assets.registerLibrary ("default", library);
@@ -105,13 +105,21 @@ null
 #if !display
 #if flash
 
+@:keep @:bind @:noCompletion #if display private #end class __ASSET__img_brick_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind @:noCompletion #if display private #end class __ASSET__img_grid_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind @:noCompletion #if display private #end class __ASSET__img_haxelogo_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind @:noCompletion #if display private #end class __ASSET__img_logo1_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind @:noCompletion #if display private #end class __ASSET__img_logo2_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind @:noCompletion #if display private #end class __ASSET__manifest_default_json extends flash.utils.ByteArray { }
 
 
 #elseif (desktop || cpp)
 
+@:keep @:image("assets/img/brick.png") @:noCompletion #if display private #end class __ASSET__img_brick_png extends lime.graphics.Image {}
 @:keep @:image("assets/img/grid.png") @:noCompletion #if display private #end class __ASSET__img_grid_png extends lime.graphics.Image {}
+@:keep @:image("assets/img/haxelogo.png") @:noCompletion #if display private #end class __ASSET__img_haxelogo_png extends lime.graphics.Image {}
+@:keep @:image("assets/img/logo1.png") @:noCompletion #if display private #end class __ASSET__img_logo1_png extends lime.graphics.Image {}
+@:keep @:image("assets/img/logo2.png") @:noCompletion #if display private #end class __ASSET__img_logo2_png extends lime.graphics.Image {}
 @:keep @:file("") @:noCompletion #if display private #end class __ASSET__manifest_default_json extends haxe.io.Bytes {}
 
 

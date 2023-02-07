@@ -3,6 +3,7 @@ package;
 import openfl.Vector;
 import openfl.display.Sprite;
 import openfl.display.Bitmap;
+import openfl.display.BitmapData;
 import openfl.Assets;
 import openfl.Lib;
 import openfl.display.GradientType;
@@ -103,24 +104,46 @@ class Main extends Sprite {
 		graphics.drawRoundRectComplex(x0, y0, 50, 100, 5, 10, 15, 20);
 		
 		
-		// drawTriangles(vertices: Vector<number>, indices?: Vector<number>, uvtData?: Vector<number>, culling?: TriangleCulling): void
-		// Векторы OpenFL:  https://www.openfl.org/learn/npm/api/classes/openfl.vector.html
-		
-		graphics.lineStyle(1, 0xFFFFFF);
+		// public function curveTo(controlX:Number, controlY:Number, anchorX:Number, anchorY:Number):void
 		
 		x0 = 600;
 		y0 = 0;
-		var myVectTriangles = new Vector(6);
+		
+		graphics.lineStyle(1, 0xFFFFFF);
+		graphics.moveTo(x0, y0);
+		graphics.curveTo(x0 + 50, y0 + 200, x0 + 100, y0);
+		
+		
+		// public function cubicCurveTo(controlX1:Number, controlY1:Number, controlX2:Number, controlY2:Number, anchorX:Number, anchorY:Number):void
+		
+		x0 = 700;
+		y0 = 0;
+		
+		graphics.lineStyle(1, 0xFFFFFF);
+		graphics.moveTo(x0, y0);
+		graphics.cubicCurveTo(x0 + 20, y0 + 134, x0 + 80, y0 + 134, x0 + 100, y0);
+		
+
+				// drawTriangles(vertices: Vector<number>, indices?: Vector<number>, uvtData?: Vector<number>, culling?: TriangleCulling): void
+		// Векторы OpenFL:  https://www.openfl.org/learn/npm/api/classes/openfl.vector.html
+		// Проблемы с типами в HTML5
+		/*
+		graphics.lineStyle(1, 0xFFFFFF);
+		
+		x0 = 800;
+		y0 = 0;
+		var myVectTriangles:Vector<Float>;
+		myVectTriangles = new Vector(6);
+		
 		myVectTriangles = Vector.ofArray([x0, y0 + 100, x0 + 50, y0, x0 + 100, y0 + 100]);
 		graphics.drawTriangles(myVectTriangles);
 		
-		x0 = 700;
+		x0 = 900;
 		y0 = 0;
 		graphics.drawTriangles(
 			Vector.ofArray([x0, y0, x0 + 100, y0, x0 + 50, y0 + 100])
 		);		
-		
-		
+		*/
 		
 		// lineStyle(thickness?: number | null, color?: number, alpha?: number, pixelHinting?: boolean, scaleMode?: LineScaleMode, caps?: CapsStyle, joints?: JointStyle, miterLimit?: number): void		
 		
@@ -168,6 +191,7 @@ class Main extends Sprite {
 		
 		
 		
+
 		// lineGradientStyle(type: GradientType, colors: Array<number>, alphas: Array<number>, ratios: Array<number>, matrix?: Matrix, spreadMethod?: SpreadMethod, interpolationMethod?: InterpolationMethod, focalPointRatio?: number): void
 		// GradientType: GradientType.LINEAR or GradientType.RADIAL
 		// https://help.adobe.com/ru_RU/FlashPlatform/reference/actionscript/3/flash/display/Graphics.html#lineGradientStyle()
@@ -181,7 +205,6 @@ class Main extends Sprite {
 		
 		var matrix:Matrix = new Matrix();
 
-		
 		x0 = 0;
 		y0 = 200;
 		matrix.createGradientBox(100, 100, 0, x0, y0);
@@ -229,25 +252,73 @@ class Main extends Sprite {
 		graphics.beginGradientFill(GradientType.LINEAR, [0xFF0000, 0xff9933, 0xffff66, 0x33cc33, 0x00ffff, 0x3366ff, 0x9900ff], [1, 1, 1, 1, 1, 1, 1], [0, 43, 85, 127, 169, 211, 255], matrix);
 		graphics.drawEllipse(x0, y0, 100, 100);
 		
+		graphics.endFill();
+		
+		
+		// beginBitmapFill(bitmap: BitmapData, matrix?: Matrix, repeat?: boolean, smooth?: boolean): void
+		// https://help.adobe.com/ru_RU/FlashPlatform/reference/actionscript/3/flash/display/Graphics.html#beginGradientFill()
+		
+		x0 = 0;
+		y0 = 300;
+		
+		
+		var bmpd:BitmapData = new BitmapData(10, 10, false);
+		bmpd = Assets.getBitmapData("img/brick.png");
+		
+		var matrixB:Matrix = new Matrix();
+		matrixB.scale(1, 1); 
+		
+		//matrixB.createGradientBox(100, 100, 0, x0, y0);
+						
+		graphics.beginBitmapFill(bmpd, matrixB, true);
+		graphics.drawRect(x0, y0, 100, 100);
+		
+		
+		matrixB.rotate(Math.PI / 4);
+		graphics.beginBitmapFill(bmpd, matrixB, true);
+		graphics.drawRect(x0 + 100, y0, 100, 100);
 
+		matrixB.rotate(Math.PI / 4);
+		graphics.beginBitmapFill(bmpd, matrixB, true);
+		graphics.drawRect(x0 + 200, y0, 100, 100);
 		
 		graphics.endFill();
-		
-		
-	/*
-		graphics.lineStyle(1, 0x000000);
-		var rotateMatrix:Matrix = new Matrix();
-		//rotateMatrix.rotate(90/180*Math.PI);
-		rotateMatrix.createGradientBox(200, 300, Math.PI / 2, 0, 0);
-		
-		graphics.beginGradientFill(GradientType.LINEAR, [0xff0000, 0x0000ff], [1, 1], [0, 255], rotateMatrix);
-		graphics.drawRect(0, 0, 200, 300);
-		graphics.endFill();
-	*/
-		
 	
-	// linestyle(), lineGradientStyle(), beginFill(), beginGradientFill(), or beginBitmapFill()
+		
+		// ИЗОБРАЖЕНИЯ
+		
+		graphics.lineStyle(0, 0, 0);
+		
+		x0 = 0;
+		y0 = 400;
+		
+		var bmp:Bitmap;
+		bmp = new Bitmap();
+		bmp.bitmapData = Assets.getBitmapData("img/logo2.png");
+		bmp.x = x0;
+		bmp.y = y0;
+		bmp.width = 150;
+		bmp.height = 150;
+		addChild(bmp);
+		
+		x0 = 100;
+		y0 = 400;
+		
+		var bmp2:Bitmap;
+		bmp2 = new Bitmap();
+		bmp2.bitmapData = Assets.getBitmapData("img/logo1.png");
+		bmp2.x = x0;
+		bmp2.y = y0;
+		bmp2.width = 150;
+		bmp2.height = 150;
+		addChild(bmp2);
 	
+	var bmpIndex:Int = getChildIndex(bmp);
+	var bmp2Index:Int = getChildIndex(bmp2);
+	
+	setChildIndex(bmp, bmp2Index);
+	setChildIndex(bmp2, bmpIndex);
+		
 	}
 
 }
