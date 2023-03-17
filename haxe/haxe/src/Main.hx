@@ -32,7 +32,7 @@ class Main extends Sprite {
 		var myInt:Int = 100; // совместим с Float, но не наоборот
 		var myFloat:Float = 10.45;
 		var myBool:Bool = true;
-		var myString:String = "моя строка";
+		var myString:String = "Моя строка";
 		// ereg
 		// Null
 		// Void - результат отсутствует
@@ -58,29 +58,41 @@ class Main extends Sprite {
 		// Интерполяция
 		trace("интерполяция строк (вывод 100 и 103):", 'вывод $myInt и ${myInt+3}');
 
+	
+		var myStr = new String("Строка для методов"); // String - класс
+		trace("myStr:", myStr);
 		
-		// String - класс
-		var myString2 = new String("Вторая строка");
-		trace("myString2:", myString2);
+		trace("длина строки:", myStr.length);
 		
-		trace("длина строки:", myString2.length);
+		// charAt(index:Int):String
+		trace("отдельный знак по индексу [0], [1], [100]:", myStr.charAt(0), myStr.charAt(1), myStr.charAt(100));
 		
-		trace("отдельный знак по индексу [0], [1], [100]:", myString2.charAt(0), myString2.charAt(1), myString2.charAt(100));
-		trace("цифровой код для символа [0], [1], [100]:", myString2.charCodeAt(0), myString2.charCodeAt(1), myString2.charCodeAt(100));
+		// charCodeAt(index:Int):Null<Int>
+		trace("цифровой код для символа [0], [1], [100]:", myStr.charCodeAt(0), myStr.charCodeAt(1), myStr.charCodeAt(100));
+		
 		trace("цифровой код для символа W, я, <,>:", "W".code, "я".code, ",".code);
 		trace("получение символа по коду (ф)", String.fromCharCode(1092));
 		
-		trace("узнать индекс указанного символа 'о':", myString2.indexOf("о"));
-		trace("индекс указанного символа с указанием места начала поиска:", myString2.indexOf("о", 3));
+		// indexOf(str:String, ?startIndex:Int):Int
+		trace("узнать индекс указанного символа 'о' (3):", myStr.indexOf("о")); 
+		trace("индекс указанного символа 'о' с указанием места начала поиска (14):", myStr.indexOf("о", 5));
+		// lastIndexOf(str:String, ?startIndex:Int):Int
+		trace("узнать индекс указанного символа 'о', поиск с конца (16):", myStr.lastIndexOf("о")); 
+		// Если str не удается найти, возвращается -1.
 		
-		trace("преобразовать строку в массив:", myString2.split("о"));
+		// split(delimiter:String):Array<String>
+		trace("преобразовать строку в массив, разбив по символу 'о' ([Стр,ка для мет,д,в]):", myStr.split("о"));
 		
-		trace("извлечь подстроку [начало подстроки, длина подстроки]:", myString2.substr(3,6));
-		trace("извлечь подстроку только с указанием начала:", myString2.substr(3));
-		trace("извлечь подстроку [начало подстроки, до какого индекса(без него)]:", myString2.substring(3, 9));
+		// substr(pos:Int, ?len:Int):String
+		trace("извлечь подстроку [начало подстроки, длина подстроки] (ока дл):", myStr.substr(3,6));
+		trace("извлечь подстроку только с указанием начала: (ока для методов)", myStr.substr(3));
 		
-		trace("в нижний регистр:", myString2.toLowerCase());
-		trace("в верхний регистр:", myString2.toUpperCase());
+		// substring(startIndex:Int, ?endIndex:Int):String
+		trace("извлечь подстроку [начало подстроки, до какого индекса, без него] (ока дл):", myStr.substring(3, 9));
+		
+		trace("в нижний регистр:", myStr.toLowerCase());
+		trace("в верхний регистр:", myStr.toUpperCase());
+		
 		
 		// переменные типа String неизменяемы (immutable), их нельзя модифицировать "на месте"
 		// переменные типа StringBuf изменяемы
@@ -158,8 +170,6 @@ class Main extends Sprite {
 			trace(myReg3.matchedLeft());
 			trace(myReg3.matchedRight());
 		}
-		
-		
 		
 		
 		// ВЫРАЖЕНИЯ И ОПЕРАТОРЫ
@@ -518,6 +528,7 @@ class Main extends Sprite {
 		trace(myObj2.xx3(3.1));
 		
 		// Объекты в Haxe могут иметь одновременно сразу несколько типов
+		
 		
 		// Интерфейсы
 		
